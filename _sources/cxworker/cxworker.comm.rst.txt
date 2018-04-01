@@ -12,13 +12,13 @@ Classes
 =======
 
 - :py:class:`InputMessage`:
-  Enclosure for fields and validation. Same pattern deployed by Django
+  Message informing the runner about a job being ready to be processed.
 
 - :py:class:`DoneMessage`:
-  Enclosure for fields and validation. Same pattern deployed by Django
+  Message informing :py:class:`cxworker.shepherd.Shepherd` about a finished job.
 
 - :py:class:`ErrorMessage`:
-  Enclosure for fields and validation. Same pattern deployed by Django
+  Message informing :py:class:`cxworker.shepherd.Shepherd` about an encountered error.
 
 - :py:class:`Messenger`:
   Static helper class for sending and receiving messages through zmq sockets.

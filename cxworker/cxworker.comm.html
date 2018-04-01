@@ -131,11 +131,11 @@
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="#cxworker.comm.InputMessage" title="cxworker.comm.InputMessage"><code class="xref py py-class docutils literal"><span class="pre">InputMessage</span></code></a>:
-Enclosure for fields and validation. Same pattern deployed by Django</li>
+Message informing the runner about a job being ready to be processed.</li>
 <li><a class="reference internal" href="#cxworker.comm.DoneMessage" title="cxworker.comm.DoneMessage"><code class="xref py py-class docutils literal"><span class="pre">DoneMessage</span></code></a>:
-Enclosure for fields and validation. Same pattern deployed by Django</li>
+Message informing <a class="reference internal" href="cxworker.shepherd.html#cxworker.shepherd.Shepherd" title="cxworker.shepherd.Shepherd"><code class="xref py py-class docutils literal"><span class="pre">cxworker.shepherd.Shepherd</span></code></a> about a finished job.</li>
 <li><a class="reference internal" href="#cxworker.comm.ErrorMessage" title="cxworker.comm.ErrorMessage"><code class="xref py py-class docutils literal"><span class="pre">ErrorMessage</span></code></a>:
-Enclosure for fields and validation. Same pattern deployed by Django</li>
+Message informing <a class="reference internal" href="cxworker.shepherd.html#cxworker.shepherd.Shepherd" title="cxworker.shepherd.Shepherd"><code class="xref py py-class docutils literal"><span class="pre">cxworker.shepherd.Shepherd</span></code></a> about an encountered error.</li>
 <li><a class="reference internal" href="#cxworker.comm.Messenger" title="cxworker.comm.Messenger"><code class="xref py py-class docutils literal"><span class="pre">Messenger</span></code></a>:
 Static helper class for sending and receiving messages through zmq sockets.</li>
 <li><a class="reference internal" href="#cxworker.comm.JobDoneNotifier" title="cxworker.comm.JobDoneNotifier"><code class="xref py py-class docutils literal"><span class="pre">JobDoneNotifier</span></code></a>:
@@ -145,22 +145,34 @@ Simple notifier build over green zmq PUB-SUB sockets.</li>
 <dt id="cxworker.comm.InputMessage">
 <em class="property">class </em><code class="descclassname">cxworker.comm.</code><code class="descname">InputMessage</code><span class="sig-paren">(</span><em>raw_data=None</em>, <em>trusted_data=None</em>, <em>deserialize_mapping=None</em>, <em>init=True</em>, <em>partial=True</em>, <em>strict=True</em>, <em>validate=False</em>, <em>app_data=None</em>, <em>lazy=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/messages.html#InputMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.InputMessage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.comm.messages.Message</span></code></p>
-<img src="../_images/inheritance-c8f689cddfa2680fca077c2b2dd3cbd2f0c7fb42.png" alt="Inheritance diagram of InputMessage" usemap="#inheritance9ee517a85c" class="inheritance"/>
+<p>Message informing the runner about a job being ready to be processed.</p>
+<img src="../_images/inheritance-d533c1cae892c9e9eb6a4128eda201ef96b0ba2e.png" alt="Inheritance diagram of InputMessage" usemap="#inheritance9ee517a85c" class="inheritance"/>
 <map id="inheritance9ee517a85c" name="inheritance9ee517a85c">
+<area shape="rect" id="node1" title="Message informing the runner about a job being ready to be processed." alt="" coords="484,29,596,55"/>
+<area shape="rect" id="node2" title="Base zmq socket message." alt="" coords="357,29,436,55"/>
 <area shape="rect" id="node3" title="Enclosure for fields and validation. Same pattern deployed by Django" alt="" coords="237,29,309,55"/>
 <area shape="rect" id="node4" title="Compatibility layer for previous deprecated Schematics Model API." alt="" coords="5,29,189,55"/>
 </map>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+<dl class="attribute">
+<dt id="cxworker.comm.InputMessage.io_data_root">
+<code class="descname">io_data_root</code><em class="property"> = &lt;StringType() instance on InputMessage as 'io_data_root'&gt;</em><a class="headerlink" href="#cxworker.comm.InputMessage.io_data_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Job data root (with <code class="docutils literal"><span class="pre">inputs</span></code> and <code class="docutils literal"><span class="pre">outputs</span></code> folders).</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="cxworker.comm.DoneMessage">
 <em class="property">class </em><code class="descclassname">cxworker.comm.</code><code class="descname">DoneMessage</code><span class="sig-paren">(</span><em>raw_data=None</em>, <em>trusted_data=None</em>, <em>deserialize_mapping=None</em>, <em>init=True</em>, <em>partial=True</em>, <em>strict=True</em>, <em>validate=False</em>, <em>app_data=None</em>, <em>lazy=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/messages.html#DoneMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.DoneMessage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.comm.messages.Message</span></code></p>
-<img src="../_images/inheritance-1246ffd647634d3ea3c5457a66cf569cd98ded1b.png" alt="Inheritance diagram of DoneMessage" usemap="#inheritance4beafa1407" class="inheritance"/>
+<p>Message informing <a class="reference internal" href="cxworker.shepherd.html#cxworker.shepherd.Shepherd" title="cxworker.shepherd.Shepherd"><code class="xref py py-class docutils literal"><span class="pre">cxworker.shepherd.Shepherd</span></code></a> about a finished job.</p>
+<img src="../_images/inheritance-76a71eb95f5d98fb9e76ae42b0440d6fdec81e64.png" alt="Inheritance diagram of DoneMessage" usemap="#inheritance4beafa1407" class="inheritance"/>
 <map id="inheritance4beafa1407" name="inheritance4beafa1407">
+<area shape="rect" id="node1" title="Message informing :py:class:`cxworker.shepherd.Shepherd` about a finished job." alt="" coords="484,29,597,55"/>
+<area shape="rect" id="node2" title="Base zmq socket message." alt="" coords="357,29,436,55"/>
 <area shape="rect" id="node3" title="Enclosure for fields and validation. Same pattern deployed by Django" alt="" coords="237,29,309,55"/>
 <area shape="rect" id="node4" title="Compatibility layer for previous deprecated Schematics Model API." alt="" coords="5,29,189,55"/>
 </map>
@@ -173,14 +185,29 @@ Simple notifier build over green zmq PUB-SUB sockets.</li>
 <dt id="cxworker.comm.ErrorMessage">
 <em class="property">class </em><code class="descclassname">cxworker.comm.</code><code class="descname">ErrorMessage</code><span class="sig-paren">(</span><em>raw_data=None</em>, <em>trusted_data=None</em>, <em>deserialize_mapping=None</em>, <em>init=True</em>, <em>partial=True</em>, <em>strict=True</em>, <em>validate=False</em>, <em>app_data=None</em>, <em>lazy=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/messages.html#ErrorMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.ErrorMessage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.comm.messages.Message</span></code></p>
-<img src="../_images/inheritance-1c0c66b22eb28af48ef98e494bacea2fde26672f.png" alt="Inheritance diagram of ErrorMessage" usemap="#inheritance4bb15a4e8a" class="inheritance"/>
+<p>Message informing <a class="reference internal" href="cxworker.shepherd.html#cxworker.shepherd.Shepherd" title="cxworker.shepherd.Shepherd"><code class="xref py py-class docutils literal"><span class="pre">cxworker.shepherd.Shepherd</span></code></a> about an encountered error.</p>
+<img src="../_images/inheritance-723eec3214f3700bd63a4d1975c565e768e5e1eb.png" alt="Inheritance diagram of ErrorMessage" usemap="#inheritance4bb15a4e8a" class="inheritance"/>
 <map id="inheritance4bb15a4e8a" name="inheritance4bb15a4e8a">
+<area shape="rect" id="node1" title="Message informing :py:class:`cxworker.shepherd.Shepherd` about an encountered error." alt="" coords="484,29,595,55"/>
+<area shape="rect" id="node2" title="Base zmq socket message." alt="" coords="357,29,436,55"/>
 <area shape="rect" id="node3" title="Enclosure for fields and validation. Same pattern deployed by Django" alt="" coords="237,29,309,55"/>
 <area shape="rect" id="node4" title="Compatibility layer for previous deprecated Schematics Model API." alt="" coords="5,29,189,55"/>
 </map>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+<dl class="attribute">
+<dt id="cxworker.comm.ErrorMessage.long_error">
+<code class="descname">long_error</code><em class="property"> = &lt;StringType() instance on ErrorMessage as 'long_error'&gt;</em><a class="headerlink" href="#cxworker.comm.ErrorMessage.long_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Longer error message (e.g.: stacktrace).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cxworker.comm.ErrorMessage.short_error">
+<code class="descname">short_error</code><em class="property"> = &lt;StringType() instance on ErrorMessage as 'short_error'&gt;</em><a class="headerlink" href="#cxworker.comm.ErrorMessage.short_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Human-readable short error message.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
