@@ -211,7 +211,7 @@ Simple notifier build over green zmq PUB-SUB sockets.</li>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
 <li><strong>MessengerError</strong> &#8211; if receiving fails</li>
-<li><a class="reference internal" href="#cxworker.comm.UnknownMessageTypeError" title="cxworker.comm.UnknownMessageTypeError"><strong>UnknownMessageTypeError</strong></a> &#8211; if the received message is of unknown type</li>
+<li><strong>UnknownMessageTypeError</strong> &#8211; if the received message is of unknown type</li>
 <li><a class="reference internal" href="#cxworker.comm.UnexpectedMessageTypeError" title="cxworker.comm.UnexpectedMessageTypeError"><strong>UnexpectedMessageTypeError</strong></a> &#8211; if the received message type is not expected</li>
 </ul>
 </td>
@@ -240,7 +240,7 @@ Simple notifier build over green zmq PUB-SUB sockets.</li>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
 <li><strong>MessengerError</strong> &#8211; if it fails</li>
-<li><a class="reference internal" href="#cxworker.comm.UnknownMessageTypeError" title="cxworker.comm.UnknownMessageTypeError"><strong>UnknownMessageTypeError</strong></a> &#8211; if the message to be send is of unknown type</li>
+<li><strong>UnknownMessageTypeError</strong> &#8211; if the message to be send is of unknown type</li>
 </ul>
 </td>
 </tr>
@@ -315,8 +315,6 @@ is called.</p>
 <ul class="simple">
 <li><a class="reference internal" href="#cxworker.comm.MessageError" title="cxworker.comm.MessageError"><code class="xref py py-exc docutils literal"><span class="pre">MessageError</span></code></a>:
 Inappropriate argument value (of correct type).</li>
-<li><a class="reference internal" href="#cxworker.comm.UnknownMessageTypeError" title="cxworker.comm.UnknownMessageTypeError"><code class="xref py py-exc docutils literal"><span class="pre">UnknownMessageTypeError</span></code></a>:
-Inappropriate argument value (of correct type).</li>
 <li><a class="reference internal" href="#cxworker.comm.UnexpectedMessageTypeError" title="cxworker.comm.UnexpectedMessageTypeError"><code class="xref py py-exc docutils literal"><span class="pre">UnexpectedMessageTypeError</span></code></a>:
 Inappropriate argument value (of correct type).</li>
 </ul>
@@ -325,13 +323,6 @@ Inappropriate argument value (of correct type).</li>
 <em class="property">exception </em><code class="descclassname">cxworker.comm.</code><code class="descname">MessageError</code><a class="reference internal" href="../_modules/cxworker/comm/errors.html#MessageError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.MessageError" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Inheritance</p>
 <img src="../_images/inheritance-4e77f46efc3c3c1b265636c924ed68045c78854a.png" alt="Inheritance diagram of MessageError" class="inheritance"/>
-</dd></dl>
-
-<dl class="exception">
-<dt id="cxworker.comm.UnknownMessageTypeError">
-<em class="property">exception </em><code class="descclassname">cxworker.comm.</code><code class="descname">UnknownMessageTypeError</code><a class="reference internal" href="../_modules/cxworker/comm/errors.html#UnknownMessageTypeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.UnknownMessageTypeError" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Inheritance</p>
-<img src="../_images/inheritance-f3e441e03219219a7fcfda80a20be46bdcfbd1c7.png" alt="Inheritance diagram of UnknownMessageTypeError" class="inheritance"/>
 </dd></dl>
 
 <dl class="exception">

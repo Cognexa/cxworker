@@ -104,9 +104,6 @@ Exceptions
 - :py:exc:`MessageError`:
   Inappropriate argument value (of correct type).
 
-- :py:exc:`UnknownMessageTypeError`:
-  Inappropriate argument value (of correct type).
-
 - :py:exc:`UnexpectedMessageTypeError`:
   Inappropriate argument value (of correct type).
 
@@ -115,12 +112,6 @@ Exceptions
 
    .. rubric:: Inheritance
    .. inheritance-diagram:: MessageError
-      :parts: 1
-
-.. autoexception:: UnknownMessageTypeError
-
-   .. rubric:: Inheritance
-   .. inheritance-diagram:: UnknownMessageTypeError
       :parts: 1
 
 .. autoexception:: UnexpectedMessageTypeError
