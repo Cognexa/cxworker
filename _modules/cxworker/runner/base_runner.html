@@ -208,7 +208,7 @@
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="BaseRunner.process_all"><a class="viewcode-back" href="../../../cxworker/cxworker.runner.html#cxworker.runner.BaseRunner.process_all">[docs]</a>    <span class="k">def</span> <span class="nf">process_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;List on the ``self._socket`` and process the incoming jobs in an endless loop.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Listen on the ``self._socket`` and process the incoming jobs in an endless loop.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_config</span><span class="p">()</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Starting the loop&#39;</span><span class="p">)</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
