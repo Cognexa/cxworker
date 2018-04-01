@@ -11,6 +11,9 @@
 Classes
 =======
 
+- :py:class:`Message`:
+  Base zmq socket message.
+
 - :py:class:`InputMessage`:
   Message informing the runner about a job being ready to be processed.
 
@@ -25,6 +28,20 @@ Classes
 
 - :py:class:`JobDoneNotifier`:
   Simple notifier build over green zmq PUB-SUB sockets.
+
+
+
+.. autoclass:: Message
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: Message
+      :parts: 1
+
+   |
 
 
 
