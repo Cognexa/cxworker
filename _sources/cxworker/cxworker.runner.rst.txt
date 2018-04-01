@@ -1,0 +1,66 @@
+===================
+``cxworker.runner``
+===================
+
+.. automodule:: cxworker.runner
+
+
+
+Submodules
+==========
+
+.. toctree::
+   :titlesonly:
+
+   cxworker.runner.runner_entry_point
+
+.. currentmodule:: cxworker.runner
+
+
+Functions
+=========
+
+- :py:func:`to_json_serializable`:
+  Make an object containing numpy arrays/scalars JSON serializable.
+
+
+.. autofunction:: to_json_serializable
+
+
+Classes
+=======
+
+- :py:class:`BaseRunner`:
+  Base **cxflow** runner class suitable for inheritance when implementing a runner with custom behavior.
+
+- :py:class:`JSONRunner`:
+  Fully functional cxflow runner which loads a JSON from ``input_path``/``input.json``, passes the loaded object
+
+
+
+.. autoclass:: BaseRunner
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: BaseRunner
+      :parts: 1
+
+   |
+
+
+
+.. autoclass:: JSONRunner
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: JSONRunner
+      :parts: 1
+
+   |
+

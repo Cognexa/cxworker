@@ -1,0 +1,98 @@
+==================
+``cxworker.sheep``
+==================
+
+.. automodule:: cxworker.sheep
+
+
+.. currentmodule:: cxworker.sheep
+
+
+Classes
+=======
+
+- :py:class:`BaseSheep`:
+  A base class for container adapters - classes that allow launching different kinds of containers.
+
+- :py:class:`DockerSheep`:
+  Sheep running its jobs in docker containers.
+
+- :py:class:`BareSheep`:
+  An adapter that running models on bare metal with ``cxworker-runner``.
+
+- :py:class:`SheepError`:
+  Common base class for all exceptions
+
+- :py:class:`SheepConfigurationError`:
+  Common base class for all exceptions
+
+
+
+.. autoclass:: BaseSheep
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: BaseSheep
+      :parts: 1
+
+   |
+
+
+
+.. autoclass:: DockerSheep
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: DockerSheep
+      :parts: 1
+
+   |
+
+
+
+.. autoclass:: BareSheep
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: BareSheep
+      :parts: 1
+
+   |
+
+
+
+.. autoclass:: SheepError
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: SheepError
+      :parts: 1
+
+   |
+
+
+
+.. autoclass:: SheepConfigurationError
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: SheepConfigurationError
+      :parts: 1
+
+   |
+

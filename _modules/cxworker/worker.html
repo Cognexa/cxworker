@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>cxworker.worker &#8212; cxworker 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/highlight.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          cxworker</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../tutorial.html">Introduction</a></li>
+                <li><a href="../../bare_sheep.html">Bare Sheep</a></li>
+                <li><a href="../../docker_sheep.html">Docker Sheep</a></li>
+                <li><a href="../../runners.html">Runners</a></li>
+                <li><a href="../../api.html">API</a></li>
+                <li><a href="../../cxworker/index.html">Package Reference</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Pages <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+<form action="../../search.html" method="get" class="searchbox">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form><div class="side_nav">
+	<h4>Related projects</h4>
+</div>
+<ul class="nav nav-list">
+	<li><a href="https://cxflow.org">cxflow</a></li>
+	<li><a href="https://tensorflow.cxflow.org">cxflow-tensorflow</a></li>
+	<li><a href="https://cxtream.org">cxtream (c++)</a></li>
+</ul>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <h1>Source code for cxworker.worker</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span>
+
+<span class="kn">import</span> <span class="nn">gevent</span>
+<span class="kn">import</span> <span class="nn">cxflow</span> <span class="k">as</span> <span class="nn">cx</span>
+<span class="kn">from</span> <span class="nn">minio</span> <span class="k">import</span> <span class="n">Minio</span>
+<span class="kn">from</span> <span class="nn">gevent.wsgi</span> <span class="k">import</span> <span class="n">WSGIServer</span>
+<span class="kn">from</span> <span class="nn">urllib3.exceptions</span> <span class="k">import</span> <span class="n">MaxRetryError</span>
+
+<span class="kn">from</span> <span class="nn">.shepherd</span> <span class="k">import</span> <span class="n">Shepherd</span>
+<span class="kn">from</span> <span class="nn">.api</span> <span class="k">import</span> <span class="n">create_app</span>
+<span class="kn">from</span> <span class="nn">.api.views</span> <span class="k">import</span> <span class="n">create_worker_blueprint</span>
+<span class="kn">from</span> <span class="nn">.shepherd.config</span> <span class="k">import</span> <span class="n">WorkerConfig</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Worker&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Worker"><a class="viewcode-back" href="../../cxworker/cxworker.worker.html#cxworker.Worker">[docs]</a><span class="k">class</span> <span class="nc">Worker</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create and manage worker API, shepherd and minio handle.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Worker.__init__"><a class="viewcode-back" href="../../cxworker/cxworker.worker.html#cxworker.Worker.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create new Worker.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minio</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Minio</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shepherd</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Shepherd</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WorkerConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="n">create_app</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Flask app serving the worker API.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span>
+
+<div class="viewcode-block" id="Worker.load_config"><a class="viewcode-back" href="../../cxworker/cxworker.worker.html#cxworker.Worker.load_config">[docs]</a>    <span class="k">def</span> <span class="nf">load_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">WorkerConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load the given configuration and create minio and shepherd handles.</span>
+
+<span class="sd">        :param config: worker configuration to be loaded</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">log_level</span><span class="p">,</span>
+                            <span class="nb">format</span><span class="o">=</span><span class="n">cx</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">CXF_LOG_FORMAT</span><span class="p">,</span>
+                            <span class="n">datefmt</span><span class="o">=</span><span class="n">cx</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">CXF_LOG_DATE_FORMAT</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;urllib3&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Creating minio handle&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minio</span> <span class="o">=</span> <span class="n">Minio</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">schemeless_url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">access_key</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">secret_key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">secure</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Creating shepherd&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shepherd</span> <span class="o">=</span> <span class="n">Shepherd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">registry</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">sheep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">data_root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minio</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Worker.run"><a class="viewcode-back" href="../../cxworker/cxworker.worker.html#cxworker.Worker.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run the API server, and shepherd.</span>
+<span class="sd">        The worker has to be previously configured with :py:meth:`load_config`.</span>
+
+<span class="sd">        :param host: API host</span>
+<span class="sd">        :param port: API port</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Configuration has not been loaded yet&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">create_worker_blueprint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shepherd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minio</span><span class="p">))</span>
+
+        <span class="n">api_server</span> <span class="o">=</span> <span class="n">WSGIServer</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+
+        <span class="n">api_handler</span> <span class="o">=</span> <span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">api_server</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+        <span class="n">sheep_listener</span> <span class="o">=</span> <span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shepherd</span><span class="o">.</span><span class="n">listen</span><span class="p">)</span>
+
+        <span class="c1"># everything should be ready, lets check if minio works</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_minio</span><span class="o">.</span><span class="n">list_buckets</span><span class="p">()</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Minio storage appears to be up and running&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">MaxRetryError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Cannot connect to minio at (</span><span class="si">%s</span><span class="s1">)&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Worker API is available at http://</span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+            <span class="n">gevent</span><span class="o">.</span><span class="n">joinall</span><span class="p">([</span><span class="n">api_handler</span><span class="p">,</span> <span class="n">sheep_listener</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Interrupt caught, slaughtering all the sheep&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shepherd</span><span class="o">.</span><span class="n">slaughter_all</span><span class="p">()</span></div></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+    </p>
+  </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108491604-2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-108491604-2');
+</script>
+
+
+
+  </body>
+</html>

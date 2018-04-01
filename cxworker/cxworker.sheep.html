@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>cxworker.sheep &#8212; cxworker 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/highlight.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="cxworker.shepherd" href="cxworker.shepherd.html" />
+    <link rel="prev" title="cxworker.runner.runner_entry_point" href="cxworker.runner.runner_entry_point.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          cxworker</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../tutorial.html">Introduction</a></li>
+                <li><a href="../bare_sheep.html">Bare Sheep</a></li>
+                <li><a href="../docker_sheep.html">Docker Sheep</a></li>
+                <li><a href="../runners.html">Runners</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="index.html">Package Reference</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Pages <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+<div class="side_nav">
+    <a href="cxworker.runner.runner_entry_point.html" title="Previous Chapter: cxworker.runner.runner_entry_point"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; cxworker.runner.runner_entry_point</span>
+    </a>
+    </div>
+<div class="side_nav">
+    <a href="cxworker.shepherd.html" title="Next Chapter: cxworker.shepherd"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">cxworker.shepherd &raquo;</span>
+    </a>
+    </div><ul>
+<li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">cxworker.sheep</span></code></a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+
+<form action="../search.html" method="get" class="searchbox">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form><div class="side_nav">
+	<h4>Related projects</h4>
+</div>
+<ul class="nav nav-list">
+	<li><a href="https://cxflow.org">cxflow</a></li>
+	<li><a href="https://tensorflow.cxflow.org">cxflow-tensorflow</a></li>
+	<li><a href="https://cxtream.org">cxtream (c++)</a></li>
+</ul>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="module-cxworker.sheep">
+<span id="cxworker-sheep"></span><h1><code class="docutils literal"><span class="pre">cxworker.sheep</span></code><a class="headerlink" href="#module-cxworker.sheep" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="#cxworker.sheep.BaseSheep" title="cxworker.sheep.BaseSheep"><code class="xref py py-class docutils literal"><span class="pre">BaseSheep</span></code></a>:
+A base class for container adapters - classes that allow launching different kinds of containers.</li>
+<li><a class="reference internal" href="#cxworker.sheep.DockerSheep" title="cxworker.sheep.DockerSheep"><code class="xref py py-class docutils literal"><span class="pre">DockerSheep</span></code></a>:
+Sheep running its jobs in docker containers.</li>
+<li><a class="reference internal" href="#cxworker.sheep.BareSheep" title="cxworker.sheep.BareSheep"><code class="xref py py-class docutils literal"><span class="pre">BareSheep</span></code></a>:
+An adapter that running models on bare metal with <code class="docutils literal"><span class="pre">cxworker-runner</span></code>.</li>
+<li><a class="reference internal" href="#cxworker.sheep.SheepError" title="cxworker.sheep.SheepError"><code class="xref py py-class docutils literal"><span class="pre">SheepError</span></code></a>:
+Common base class for all exceptions</li>
+<li><a class="reference internal" href="#cxworker.sheep.SheepConfigurationError" title="cxworker.sheep.SheepConfigurationError"><code class="xref py py-class docutils literal"><span class="pre">SheepConfigurationError</span></code></a>:
+Common base class for all exceptions</li>
+</ul>
+<dl class="class">
+<dt id="cxworker.sheep.BaseSheep">
+<em class="property">class </em><code class="descclassname">cxworker.sheep.</code><code class="descname">BaseSheep</code><span class="sig-paren">(</span><em>socket</em>, <em>sheep_data_root</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/base_sheep.html#BaseSheep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.BaseSheep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>A base class for container adapters - classes that allow launching different kinds of containers.</p>
+<img src="../_images/inheritance-ccd781b3fa8b930a3be6b89f7e4f064bed5cc517.png" alt="Inheritance diagram of BaseSheep" usemap="#inheritancef9d1465e0a" class="inheritance"/>
+<map id="inheritancef9d1465e0a" name="inheritancef9d1465e0a">
+<area shape="rect" id="node1" title="A base class for container adapters &#45; classes that allow launching different kinds of containers." alt="" coords="5,5,100,31"/>
+</map>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="method">
+<dt id="cxworker.sheep.BaseSheep.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>socket</em>, <em>sheep_data_root</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/base_sheep.html#BaseSheep.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.BaseSheep.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new <a class="reference internal" href="#cxworker.sheep.BaseSheep" title="cxworker.sheep.BaseSheep"><code class="xref py py-class docutils literal"><span class="pre">BaseSheep</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>socket</strong> (<code class="xref py py-class docutils literal"><span class="pre">_Socket</span></code>) &#8211; socket for feeding sheep&#8217;s runner with InputMessages</li>
+<li><strong>sheep_data_root</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; sheep data root with job working directories</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.sheep.BaseSheep._load_model">
+<code class="descname">_load_model</code><span class="sig-paren">(</span><em>model_name</em>, <em>model_version</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/base_sheep.html#BaseSheep._load_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.BaseSheep._load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell the sheep to prepare a new model (without restarting).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cxworker.sheep.BaseSheep.running">
+<code class="descname">running</code><a class="headerlink" href="#cxworker.sheep.BaseSheep.running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the sheep running, i.e. capable of accepting computation requests?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.sheep.BaseSheep.start">
+<code class="descname">start</code><span class="sig-paren">(</span><em>model_name</em>, <em>model_version</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/base_sheep.html#BaseSheep.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.BaseSheep.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>(Re)start the sheep with the given model name and version.
+Any unfinished jobs will be lost, socket connection will be reset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model name</li>
+<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model version</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cxworker.sheep.DockerSheep">
+<em class="property">class </em><code class="descclassname">cxworker.sheep.</code><code class="descname">DockerSheep</code><span class="sig-paren">(</span><em>config</em>, <em>registry_config</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/docker_sheep.html#DockerSheep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.DockerSheep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.sheep.base_sheep.BaseSheep</span></code></p>
+<p>Sheep running its jobs in docker containers.
+To enable GPU computation, specify the gpu devices in the configuration and sheep will attempt to
+use <code class="docutils literal"><span class="pre">nvidia</span> <span class="pre">docker</span> <span class="pre">2</span></code>.</p>
+<img src="../_images/inheritance-ed33ab579d08df4e1fea1b99ca00199ba47c9310.png" alt="Inheritance diagram of DockerSheep" usemap="#inheritance812713e663" class="inheritance"/>
+<map id="inheritance812713e663" name="inheritance812713e663">
+<area shape="rect" id="node1" title="A base class for container adapters &#45; classes that allow launching different kinds of containers." alt="" coords="5,5,100,31"/>
+<area shape="rect" id="node2" title="Sheep running its jobs in docker containers." alt="" coords="148,5,256,31"/>
+</map>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="method">
+<dt id="cxworker.sheep.DockerSheep.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>config</em>, <em>registry_config</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/docker_sheep.html#DockerSheep.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.DockerSheep.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new <a class="reference internal" href="#cxworker.sheep.DockerSheep" title="cxworker.sheep.DockerSheep"><code class="xref py py-class docutils literal"><span class="pre">DockerSheep</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Any" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Any</span></code></a>]) &#8211; docker sheep configuration</li>
+<li><strong>registry_config</strong> (<code class="xref py py-class docutils literal"><span class="pre">RegistryConfig</span></code>) &#8211; docker registry configuration</li>
+<li><strong>kwargs</strong> &#8211; <a class="reference internal" href="#cxworker.sheep.BaseSheep" title="cxworker.sheep.BaseSheep"><code class="xref py py-class docutils literal"><span class="pre">BaseSheep</span></code></a>&#8216;s kwargs</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.sheep.DockerSheep._load_model">
+<code class="descname">_load_model</code><span class="sig-paren">(</span><em>model_name</em>, <em>model_version</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/docker_sheep.html#DockerSheep._load_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.DockerSheep._load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pull docker image of the given name and version from the previously configured docker registry.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; docker image name</li>
+<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; docker image version</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cxworker.sheep.DockerSheep.running">
+<code class="descname">running</code><a class="headerlink" href="#cxworker.sheep.DockerSheep.running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the underlying docker container is running.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.sheep.DockerSheep.slaughter">
+<code class="descname">slaughter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/docker_sheep.html#DockerSheep.slaughter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.DockerSheep.slaughter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill the underlying docker container.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.sheep.DockerSheep.start">
+<code class="descname">start</code><span class="sig-paren">(</span><em>model_name</em>, <em>model_version</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/docker_sheep.html#DockerSheep.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.DockerSheep.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a docker command starting the docker runner.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; docker image name</li>
+<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; docker image version</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cxworker.sheep.BareSheep">
+<em class="property">class </em><code class="descclassname">cxworker.sheep.</code><code class="descname">BareSheep</code><span class="sig-paren">(</span><em>config</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/bare_sheep.html#BareSheep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.BareSheep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.sheep.base_sheep.BaseSheep</span></code></p>
+<p>An adapter that running models on bare metal with <code class="docutils literal"><span class="pre">cxworker-runner</span></code>.
+This might be useful when Docker isolation is impossible or not necessary, for example in deployments with just a
+few models.</p>
+<img src="../_images/inheritance-00f6ca3e91c908be8f8e07fe6c13d341c38668dd.png" alt="Inheritance diagram of BareSheep" usemap="#inheritancedf2c599566" class="inheritance"/>
+<map id="inheritancedf2c599566" name="inheritancedf2c599566">
+<area shape="rect" id="node1" title="An adapter that running models on bare metal with ``cxworker&#45;runner``." alt="" coords="148,5,240,31"/>
+<area shape="rect" id="node2" title="A base class for container adapters &#45; classes that allow launching different kinds of containers." alt="" coords="5,5,100,31"/>
+</map>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="method">
+<dt id="cxworker.sheep.BareSheep.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>config</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/bare_sheep.html#BareSheep.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.BareSheep.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new <a class="reference internal" href="#cxworker.sheep.BareSheep" title="cxworker.sheep.BareSheep"><code class="xref py py-class docutils literal"><span class="pre">BareSheep</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Any" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Any</span></code></a>]) &#8211; bare sheep configuration (<code class="xref py py-class docutils literal"><span class="pre">BareSheep.Config</span></code>)</li>
+<li><strong>kwargs</strong> &#8211; parent&#8217;s kwargs</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.sheep.BareSheep._load_model">
+<code class="descname">_load_model</code><span class="sig-paren">(</span><em>model_name</em>, <em>model_version</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/bare_sheep.html#BareSheep._load_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.BareSheep._load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up runner config path to <code class="docutils literal"><span class="pre">working_directory</span></code> / <code class="docutils literal"><span class="pre">model_name</span></code> / <code class="docutils literal"><span class="pre">model_version</span></code> / <code class="docutils literal"><span class="pre">config.yaml</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model name</li>
+<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model version</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference internal" href="#cxworker.sheep.SheepConfigurationError" title="cxworker.sheep.SheepConfigurationError"><strong>SheepConfigurationError</strong></a> &#8211; if the runner config path does not exist</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cxworker.sheep.BareSheep.running">
+<code class="descname">running</code><a class="headerlink" href="#cxworker.sheep.BareSheep.running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the underlying runner (subprocess) is running.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.sheep.BareSheep.slaughter">
+<code class="descname">slaughter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/bare_sheep.html#BareSheep.slaughter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.BareSheep.slaughter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill the underlying runner (subprocess).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.sheep.BareSheep.start">
+<code class="descname">start</code><span class="sig-paren">(</span><em>model_name</em>, <em>model_version</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/bare_sheep.html#BareSheep.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.BareSheep.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a subprocess with the sheep runner.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model name</li>
+<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model version</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cxworker.sheep.SheepError">
+<em class="property">class </em><code class="descclassname">cxworker.sheep.</code><code class="descname">SheepError</code><a class="reference internal" href="../_modules/cxworker/sheep/errors.html#SheepError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.SheepError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/exceptions.html#BaseException" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">BaseException</span></code></a></p>
+<img src="../_images/inheritance-bcc06776ea0929ce038845ce3a06ce650e13ca6a.png" alt="Inheritance diagram of SheepError" class="inheritance"/>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cxworker.sheep.SheepConfigurationError">
+<em class="property">class </em><code class="descclassname">cxworker.sheep.</code><code class="descname">SheepConfigurationError</code><a class="reference internal" href="../_modules/cxworker/sheep/errors.html#SheepConfigurationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.SheepConfigurationError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.sheep.errors.SheepError</span></code></p>
+<img src="../_images/inheritance-f51ecaf7a0ed4e174b56262de28ffb93c6295e75.png" alt="Inheritance diagram of SheepConfigurationError" class="inheritance"/>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+    </p>
+  </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108491604-2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-108491604-2');
+</script>
+
+
+
+  </body>
+</html>

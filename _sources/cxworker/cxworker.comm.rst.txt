@@ -1,0 +1,130 @@
+=================
+``cxworker.comm``
+=================
+
+.. automodule:: cxworker.comm
+
+
+.. currentmodule:: cxworker.comm
+
+
+Classes
+=======
+
+- :py:class:`InputMessage`:
+  Enclosure for fields and validation. Same pattern deployed by Django
+
+- :py:class:`DoneMessage`:
+  Enclosure for fields and validation. Same pattern deployed by Django
+
+- :py:class:`ErrorMessage`:
+  Enclosure for fields and validation. Same pattern deployed by Django
+
+- :py:class:`Messenger`:
+  Static helper class for sending and receiving messages through zmq sockets.
+
+- :py:class:`JobDoneNotifier`:
+  Simple notifier build over green zmq PUB-SUB sockets.
+
+
+
+.. autoclass:: InputMessage
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: InputMessage
+      :parts: 1
+
+   |
+
+
+
+.. autoclass:: DoneMessage
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: DoneMessage
+      :parts: 1
+
+   |
+
+
+
+.. autoclass:: ErrorMessage
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: ErrorMessage
+      :parts: 1
+
+   |
+
+
+
+.. autoclass:: Messenger
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: Messenger
+      :parts: 1
+
+   |
+
+
+
+.. autoclass:: JobDoneNotifier
+   :show-inheritance:
+   :members:
+   :private-members:
+   :special-members:
+   :exclude-members: __weakref__
+
+   .. inheritance-diagram:: JobDoneNotifier
+      :parts: 1
+
+   |
+
+
+
+Exceptions
+==========
+
+- :py:exc:`MessageError`:
+  Inappropriate argument value (of correct type).
+
+- :py:exc:`UnknownMessageTypeError`:
+  Inappropriate argument value (of correct type).
+
+- :py:exc:`UnexpectedMessageTypeError`:
+  Inappropriate argument value (of correct type).
+
+
+.. autoexception:: MessageError
+
+   .. rubric:: Inheritance
+   .. inheritance-diagram:: MessageError
+      :parts: 1
+
+.. autoexception:: UnknownMessageTypeError
+
+   .. rubric:: Inheritance
+   .. inheritance-diagram:: UnknownMessageTypeError
+      :parts: 1
+
+.. autoexception:: UnexpectedMessageTypeError
+
+   .. rubric:: Inheritance
+   .. inheritance-diagram:: UnexpectedMessageTypeError
+      :parts: 1

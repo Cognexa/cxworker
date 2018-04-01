@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>cxworker.docker &#8212; cxworker 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/highlight.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="cxworker.runner" href="cxworker.runner.html" />
+    <link rel="prev" title="cxworker.comm" href="cxworker.comm.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          cxworker</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../tutorial.html">Introduction</a></li>
+                <li><a href="../bare_sheep.html">Bare Sheep</a></li>
+                <li><a href="../docker_sheep.html">Docker Sheep</a></li>
+                <li><a href="../runners.html">Runners</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="index.html">Package Reference</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Pages <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+<div class="side_nav">
+    <a href="cxworker.comm.html" title="Previous Chapter: cxworker.comm"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; cxworker.comm</span>
+    </a>
+    </div>
+<div class="side_nav">
+    <a href="cxworker.runner.html" title="Next Chapter: cxworker.runner"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">cxworker.runner &raquo;</span>
+    </a>
+    </div><ul>
+<li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">cxworker.docker</span></code></a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+
+<form action="../search.html" method="get" class="searchbox">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form><div class="side_nav">
+	<h4>Related projects</h4>
+</div>
+<ul class="nav nav-list">
+	<li><a href="https://cxflow.org">cxflow</a></li>
+	<li><a href="https://tensorflow.cxflow.org">cxflow-tensorflow</a></li>
+	<li><a href="https://cxtream.org">cxtream (c++)</a></li>
+</ul>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="module-cxworker.docker">
+<span id="cxworker-docker"></span><h1><code class="docutils literal"><span class="pre">cxworker.docker</span></code><a class="headerlink" href="#module-cxworker.docker" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="#cxworker.docker.DockerError" title="cxworker.docker.DockerError"><code class="xref py py-class docutils literal"><span class="pre">DockerError</span></code></a>:
+Common base class for all exceptions</li>
+<li><a class="reference internal" href="#cxworker.docker.DockerContainer" title="cxworker.docker.DockerContainer"><code class="xref py py-class docutils literal"><span class="pre">DockerContainer</span></code></a>:
+Undocumented.</li>
+<li><a class="reference internal" href="#cxworker.docker.DockerImage" title="cxworker.docker.DockerImage"><code class="xref py py-class docutils literal"><span class="pre">DockerImage</span></code></a>:
+Undocumented.</li>
+</ul>
+<dl class="class">
+<dt id="cxworker.docker.DockerError">
+<em class="property">class </em><code class="descclassname">cxworker.docker.</code><code class="descname">DockerError</code><span class="sig-paren">(</span><em>msg</em>, <em>rc=None</em>, <em>output=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/errors.html#DockerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.sheep.errors.SheepError</span></code></p>
+<img src="../_images/inheritance-e06d5edca4f0527e9a05e780142cb1503b37d268.png" alt="Inheritance diagram of DockerError" class="inheritance"/>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cxworker.docker.DockerContainer">
+<em class="property">class </em><code class="descclassname">cxworker.docker.</code><code class="descname">DockerContainer</code><span class="sig-paren">(</span><em>image</em>, <em>autoremove</em>, <em>runtime=None</em>, <em>env=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/container.html#DockerContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<img src="../_images/inheritance-36793c133ca755618e590a54abb2e3e73361b02e.png" alt="Inheritance diagram of DockerContainer" class="inheritance"/>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="method">
+<dt id="cxworker.docker.DockerContainer.add_port_mapping">
+<code class="descname">add_port_mapping</code><span class="sig-paren">(</span><em>host_port</em>, <em>container_port</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/container.html#DockerContainer.add_port_mapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerContainer.add_port_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map a port on the host machine to given port on the container</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>host_port</strong> &#8211; </li>
+<li><strong>container_port</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.docker.DockerContainer.kill">
+<code class="descname">kill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/container.html#DockerContainer.kill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerContainer.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill the container</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cxworker.docker.DockerContainer.kill_blocking_container">
+<em class="property">static </em><code class="descname">kill_blocking_container</code><span class="sig-paren">(</span><em>host_port</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/container.html#DockerContainer.kill_blocking_container"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerContainer.kill_blocking_container" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all the running docker container mapping and attempt kill any container holding the given port.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>host_port</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; host port to be freed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cxworker.docker.DockerContainer.running">
+<code class="descname">running</code><a class="headerlink" href="#cxworker.docker.DockerContainer.running" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True when the container is running, False otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.docker.DockerContainer.start">
+<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/container.html#DockerContainer.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerContainer.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the container</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cxworker.docker.DockerImage">
+<em class="property">class </em><code class="descclassname">cxworker.docker.</code><code class="descname">DockerImage</code><span class="sig-paren">(</span><em>name</em>, <em>tag</em>, <em>registry</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/image.html#DockerImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<img src="../_images/inheritance-64761cacc2b70216d98ca6e0c1f3f0a355fceb59.png" alt="Inheritance diagram of DockerImage" class="inheritance"/>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="method">
+<dt id="cxworker.docker.DockerImage.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/image.html#DockerImage.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerImage.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempt to update the local copy of the image from the registry
+:return: True if there was an update, False otherwise</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+    </p>
+  </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108491604-2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-108491604-2');
+</script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>cxworker.comm &#8212; cxworker 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/highlight.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="cxworker.docker" href="cxworker.docker.html" />
+    <link rel="prev" title="cxworker" href="cxworker.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          cxworker</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../tutorial.html">Introduction</a></li>
+                <li><a href="../bare_sheep.html">Bare Sheep</a></li>
+                <li><a href="../docker_sheep.html">Docker Sheep</a></li>
+                <li><a href="../runners.html">Runners</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="index.html">Package Reference</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Pages <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+<div class="side_nav">
+    <a href="cxworker.html" title="Previous Chapter: cxworker"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; cxworker</span>
+    </a>
+    </div>
+<div class="side_nav">
+    <a href="cxworker.docker.html" title="Next Chapter: cxworker.docker"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">cxworker.docker &raquo;</span>
+    </a>
+    </div><ul>
+<li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">cxworker.comm</span></code></a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#exceptions">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+
+<form action="../search.html" method="get" class="searchbox">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form><div class="side_nav">
+	<h4>Related projects</h4>
+</div>
+<ul class="nav nav-list">
+	<li><a href="https://cxflow.org">cxflow</a></li>
+	<li><a href="https://tensorflow.cxflow.org">cxflow-tensorflow</a></li>
+	<li><a href="https://cxtream.org">cxtream (c++)</a></li>
+</ul>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="module-cxworker.comm">
+<span id="cxworker-comm"></span><h1><code class="docutils literal"><span class="pre">cxworker.comm</span></code><a class="headerlink" href="#module-cxworker.comm" title="Permalink to this headline">¶</a></h1>
+<p>Package with sockets/greenlets communication helpers.</p>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="#cxworker.comm.InputMessage" title="cxworker.comm.InputMessage"><code class="xref py py-class docutils literal"><span class="pre">InputMessage</span></code></a>:
+Enclosure for fields and validation. Same pattern deployed by Django</li>
+<li><a class="reference internal" href="#cxworker.comm.DoneMessage" title="cxworker.comm.DoneMessage"><code class="xref py py-class docutils literal"><span class="pre">DoneMessage</span></code></a>:
+Enclosure for fields and validation. Same pattern deployed by Django</li>
+<li><a class="reference internal" href="#cxworker.comm.ErrorMessage" title="cxworker.comm.ErrorMessage"><code class="xref py py-class docutils literal"><span class="pre">ErrorMessage</span></code></a>:
+Enclosure for fields and validation. Same pattern deployed by Django</li>
+<li><a class="reference internal" href="#cxworker.comm.Messenger" title="cxworker.comm.Messenger"><code class="xref py py-class docutils literal"><span class="pre">Messenger</span></code></a>:
+Static helper class for sending and receiving messages through zmq sockets.</li>
+<li><a class="reference internal" href="#cxworker.comm.JobDoneNotifier" title="cxworker.comm.JobDoneNotifier"><code class="xref py py-class docutils literal"><span class="pre">JobDoneNotifier</span></code></a>:
+Simple notifier build over green zmq PUB-SUB sockets.</li>
+</ul>
+<dl class="class">
+<dt id="cxworker.comm.InputMessage">
+<em class="property">class </em><code class="descclassname">cxworker.comm.</code><code class="descname">InputMessage</code><span class="sig-paren">(</span><em>raw_data=None</em>, <em>trusted_data=None</em>, <em>deserialize_mapping=None</em>, <em>init=True</em>, <em>partial=True</em>, <em>strict=True</em>, <em>validate=False</em>, <em>app_data=None</em>, <em>lazy=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/messages.html#InputMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.InputMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.comm.messages.Message</span></code></p>
+<img src="../_images/inheritance-c8f689cddfa2680fca077c2b2dd3cbd2f0c7fb42.png" alt="Inheritance diagram of InputMessage" usemap="#inheritance9ee517a85c" class="inheritance"/>
+<map id="inheritance9ee517a85c" name="inheritance9ee517a85c">
+<area shape="rect" id="node3" title="Enclosure for fields and validation. Same pattern deployed by Django" alt="" coords="237,29,309,55"/>
+<area shape="rect" id="node4" title="Compatibility layer for previous deprecated Schematics Model API." alt="" coords="5,29,189,55"/>
+</map>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cxworker.comm.DoneMessage">
+<em class="property">class </em><code class="descclassname">cxworker.comm.</code><code class="descname">DoneMessage</code><span class="sig-paren">(</span><em>raw_data=None</em>, <em>trusted_data=None</em>, <em>deserialize_mapping=None</em>, <em>init=True</em>, <em>partial=True</em>, <em>strict=True</em>, <em>validate=False</em>, <em>app_data=None</em>, <em>lazy=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/messages.html#DoneMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.DoneMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.comm.messages.Message</span></code></p>
+<img src="../_images/inheritance-1246ffd647634d3ea3c5457a66cf569cd98ded1b.png" alt="Inheritance diagram of DoneMessage" usemap="#inheritance4beafa1407" class="inheritance"/>
+<map id="inheritance4beafa1407" name="inheritance4beafa1407">
+<area shape="rect" id="node3" title="Enclosure for fields and validation. Same pattern deployed by Django" alt="" coords="237,29,309,55"/>
+<area shape="rect" id="node4" title="Compatibility layer for previous deprecated Schematics Model API." alt="" coords="5,29,189,55"/>
+</map>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cxworker.comm.ErrorMessage">
+<em class="property">class </em><code class="descclassname">cxworker.comm.</code><code class="descname">ErrorMessage</code><span class="sig-paren">(</span><em>raw_data=None</em>, <em>trusted_data=None</em>, <em>deserialize_mapping=None</em>, <em>init=True</em>, <em>partial=True</em>, <em>strict=True</em>, <em>validate=False</em>, <em>app_data=None</em>, <em>lazy=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/messages.html#ErrorMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.ErrorMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.comm.messages.Message</span></code></p>
+<img src="../_images/inheritance-1c0c66b22eb28af48ef98e494bacea2fde26672f.png" alt="Inheritance diagram of ErrorMessage" usemap="#inheritance4bb15a4e8a" class="inheritance"/>
+<map id="inheritance4bb15a4e8a" name="inheritance4bb15a4e8a">
+<area shape="rect" id="node3" title="Enclosure for fields and validation. Same pattern deployed by Django" alt="" coords="237,29,309,55"/>
+<area shape="rect" id="node4" title="Compatibility layer for previous deprecated Schematics Model API." alt="" coords="5,29,189,55"/>
+</map>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cxworker.comm.Messenger">
+<em class="property">class </em><code class="descclassname">cxworker.comm.</code><code class="descname">Messenger</code><a class="reference internal" href="../_modules/cxworker/comm/messenger.html#Messenger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.Messenger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Static helper class for sending and receiving messages through zmq sockets.</p>
+<img src="../_images/inheritance-41eba691f44e33ae7e390b3c27448b81d4a714ef.png" alt="Inheritance diagram of Messenger" usemap="#inheritance0b0a3c9f7b" class="inheritance"/>
+<map id="inheritance0b0a3c9f7b" name="inheritance0b0a3c9f7b">
+<area shape="rect" id="node1" title="Static helper class for sending and receiving messages through zmq sockets." alt="" coords="5,5,97,31"/>
+</map>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="staticmethod">
+<dt id="cxworker.comm.Messenger.recv">
+<em class="property">static </em><code class="descname">recv</code><span class="sig-paren">(</span><em>socket</em>, <em>expected_message_types=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/messenger.html#Messenger.recv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.Messenger.recv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive, decode and return a message from the given socket.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>socket</strong> (<code class="xref py py-class docutils literal"><span class="pre">_Socket</span></code>) &#8211; socket to receive the message from</li>
+<li><strong>expected_message_types</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Sequence" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#type" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">type</span></code></a>]]) &#8211; a sequence of expected message types (optional)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
+<li><strong>MessengerError</strong> &#8211; if receiving fails</li>
+<li><a class="reference internal" href="#cxworker.comm.UnknownMessageTypeError" title="cxworker.comm.UnknownMessageTypeError"><strong>UnknownMessageTypeError</strong></a> &#8211; if the received message is of unknown type</li>
+<li><a class="reference internal" href="#cxworker.comm.UnexpectedMessageTypeError" title="cxworker.comm.UnexpectedMessageTypeError"><strong>UnexpectedMessageTypeError</strong></a> &#8211; if the received message type is not expected</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Union" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Union</span></code></a>[<code class="xref py py-class docutils literal"><span class="pre">InputMessage</span></code>, <code class="xref py py-class docutils literal"><span class="pre">DoneMessage</span></code>, <code class="xref py py-class docutils literal"><span class="pre">ErrorMessage</span></code>]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cxworker.comm.Messenger.send">
+<em class="property">static </em><code class="descname">send</code><span class="sig-paren">(</span><em>socket</em>, <em>message</em>, <em>response_to=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/messenger.html#Messenger.send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.Messenger.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the given image and send it to the given socket.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>socket</strong> (<code class="xref py py-class docutils literal"><span class="pre">_Socket</span></code>) &#8211; socket to send the message to</li>
+<li><strong>message</strong> (<code class="xref py py-class docutils literal"><span class="pre">Message</span></code>) &#8211; message to be send</li>
+<li><strong>response_to</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal"><span class="pre">Message</span></code>]) &#8211; optional message to respond to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
+<li><strong>MessengerError</strong> &#8211; if it fails</li>
+<li><a class="reference internal" href="#cxworker.comm.UnknownMessageTypeError" title="cxworker.comm.UnknownMessageTypeError"><strong>UnknownMessageTypeError</strong></a> &#8211; if the message to be send is of unknown type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cxworker.comm.JobDoneNotifier">
+<em class="property">class </em><code class="descclassname">cxworker.comm.</code><code class="descname">JobDoneNotifier</code><a class="reference internal" href="../_modules/cxworker/comm/notifier.html#JobDoneNotifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.JobDoneNotifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Simple notifier build over green zmq PUB-SUB sockets.</p>
+<p>Notifier allows to spawn greenlets waiting for arbitrary conditions which are tested only when the notify method
+is called.</p>
+<img src="../_images/inheritance-b796411117075a8eb106ac375ae8bbe4ac54dfcb.png" alt="Inheritance diagram of JobDoneNotifier" usemap="#inheritance2704076696" class="inheritance"/>
+<map id="inheritance2704076696" name="inheritance2704076696">
+<area shape="rect" id="node1" title="Simple notifier build over green zmq PUB&#45;SUB sockets." alt="" coords="5,5,129,31"/>
+</map>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="method">
+<dt id="cxworker.comm.JobDoneNotifier.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/notifier.html#JobDoneNotifier.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.JobDoneNotifier.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new JobDoneNotifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.comm.JobDoneNotifier.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/notifier.html#JobDoneNotifier.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.JobDoneNotifier.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the underlying socket.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.comm.JobDoneNotifier.notify">
+<code class="descname">notify</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/notifier.html#JobDoneNotifier.notify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.JobDoneNotifier.notify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notify all the waiting greenlets that yet another job is finished.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.comm.JobDoneNotifier.wait_for">
+<code class="descname">wait_for</code><span class="sig-paren">(</span><em>test</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/notifier.html#JobDoneNotifier.wait_for"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.JobDoneNotifier.wait_for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait until the test callback can be evaluated to true.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="#cxworker.comm.MessageError" title="cxworker.comm.MessageError"><code class="xref py py-exc docutils literal"><span class="pre">MessageError</span></code></a>:
+Inappropriate argument value (of correct type).</li>
+<li><a class="reference internal" href="#cxworker.comm.UnknownMessageTypeError" title="cxworker.comm.UnknownMessageTypeError"><code class="xref py py-exc docutils literal"><span class="pre">UnknownMessageTypeError</span></code></a>:
+Inappropriate argument value (of correct type).</li>
+<li><a class="reference internal" href="#cxworker.comm.UnexpectedMessageTypeError" title="cxworker.comm.UnexpectedMessageTypeError"><code class="xref py py-exc docutils literal"><span class="pre">UnexpectedMessageTypeError</span></code></a>:
+Inappropriate argument value (of correct type).</li>
+</ul>
+<dl class="exception">
+<dt id="cxworker.comm.MessageError">
+<em class="property">exception </em><code class="descclassname">cxworker.comm.</code><code class="descname">MessageError</code><a class="reference internal" href="../_modules/cxworker/comm/errors.html#MessageError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.MessageError" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Inheritance</p>
+<img src="../_images/inheritance-4e77f46efc3c3c1b265636c924ed68045c78854a.png" alt="Inheritance diagram of MessageError" class="inheritance"/>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cxworker.comm.UnknownMessageTypeError">
+<em class="property">exception </em><code class="descclassname">cxworker.comm.</code><code class="descname">UnknownMessageTypeError</code><a class="reference internal" href="../_modules/cxworker/comm/errors.html#UnknownMessageTypeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.UnknownMessageTypeError" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Inheritance</p>
+<img src="../_images/inheritance-f3e441e03219219a7fcfda80a20be46bdcfbd1c7.png" alt="Inheritance diagram of UnknownMessageTypeError" class="inheritance"/>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cxworker.comm.UnexpectedMessageTypeError">
+<em class="property">exception </em><code class="descclassname">cxworker.comm.</code><code class="descname">UnexpectedMessageTypeError</code><a class="reference internal" href="../_modules/cxworker/comm/errors.html#UnexpectedMessageTypeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.UnexpectedMessageTypeError" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Inheritance</p>
+<img src="../_images/inheritance-4fc310e9cdc53bc00c52f7449fa392de16a0eebd.png" alt="Inheritance diagram of UnexpectedMessageTypeError" class="inheritance"/>
+</dd></dl>
+
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+    </p>
+  </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108491604-2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-108491604-2');
+</script>
+
+
+
+  </body>
+</html>

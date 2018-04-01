@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>cxworker.utils &#8212; cxworker 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/highlight.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="cxworker.worker" href="cxworker.worker.html" />
+    <link rel="prev" title="cxworker.shepherd" href="cxworker.shepherd.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          cxworker</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../tutorial.html">Introduction</a></li>
+                <li><a href="../bare_sheep.html">Bare Sheep</a></li>
+                <li><a href="../docker_sheep.html">Docker Sheep</a></li>
+                <li><a href="../runners.html">Runners</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="index.html">Package Reference</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Pages <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+<div class="side_nav">
+    <a href="cxworker.shepherd.html" title="Previous Chapter: cxworker.shepherd"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; cxworker.shepherd</span>
+    </a>
+    </div>
+<div class="side_nav">
+    <a href="cxworker.worker.html" title="Next Chapter: cxworker.worker"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">cxworker.worker &raquo;</span>
+    </a>
+    </div><ul>
+<li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">cxworker.utils</span></code></a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+<form action="../search.html" method="get" class="searchbox">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form><div class="side_nav">
+	<h4>Related projects</h4>
+</div>
+<ul class="nav nav-list">
+	<li><a href="https://cxflow.org">cxflow</a></li>
+	<li><a href="https://tensorflow.cxflow.org">cxflow-tensorflow</a></li>
+	<li><a href="https://cxtream.org">cxtream (c++)</a></li>
+</ul>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="module-cxworker.utils">
+<span id="cxworker-utils"></span><h1><code class="docutils literal"><span class="pre">cxworker.utils</span></code><a class="headerlink" href="#module-cxworker.utils" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="#cxworker.utils.pull_minio_bucket" title="cxworker.utils.pull_minio_bucket"><code class="xref py py-func docutils literal"><span class="pre">pull_minio_bucket()</span></code></a>:
+Pull minio bucket contents to the specified directory.</li>
+<li><a class="reference internal" href="#cxworker.utils.push_minio_bucket" title="cxworker.utils.push_minio_bucket"><code class="xref py py-func docutils literal"><span class="pre">push_minio_bucket()</span></code></a>:
+Push directory contents to the specified minio bucket.</li>
+<li><a class="reference internal" href="#cxworker.utils.create_clean_dir" title="cxworker.utils.create_clean_dir"><code class="xref py py-func docutils literal"><span class="pre">create_clean_dir()</span></code></a>:
+Create new directory (delete its contents if it exists).</li>
+<li><a class="reference internal" href="#cxworker.utils.minio_object_exists" title="cxworker.utils.minio_object_exists"><code class="xref py py-func docutils literal"><span class="pre">minio_object_exists()</span></code></a>:
+Check if the specified minio object exists or not.</li>
+</ul>
+<dl class="function">
+<dt id="cxworker.utils.pull_minio_bucket">
+<code class="descclassname">cxworker.utils.</code><code class="descname">pull_minio_bucket</code><span class="sig-paren">(</span><em>minio</em>, <em>bucket_name</em>, <em>dir_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/utils/storage.html#pull_minio_bucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.utils.pull_minio_bucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pull minio bucket contents to the specified directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>minio</strong> (<code class="xref py py-class docutils literal"><span class="pre">Minio</span></code>) &#8211; Minio handle</li>
+<li><strong>bucket_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; Minio bucket name</li>
+<li><strong>dir_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; directory name to pull to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><strong>StorageError</strong> &#8211; if the pull fails</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cxworker.utils.push_minio_bucket">
+<code class="descclassname">cxworker.utils.</code><code class="descname">push_minio_bucket</code><span class="sig-paren">(</span><em>minio</em>, <em>bucket_name</em>, <em>dir_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/utils/storage.html#push_minio_bucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.utils.push_minio_bucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push directory contents to the specified minio bucket.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>minio</strong> (<code class="xref py py-class docutils literal"><span class="pre">Minio</span></code>) &#8211; Minio handle</li>
+<li><strong>bucket_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; Minio buckete name</li>
+<li><strong>dir_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; directory name to push to from</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><strong>StorageError</strong> &#8211; if the push fails</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cxworker.utils.create_clean_dir">
+<code class="descclassname">cxworker.utils.</code><code class="descname">create_clean_dir</code><span class="sig-paren">(</span><em>dir_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/utils/storage.html#create_clean_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.utils.create_clean_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new directory (delete its contents if it exists).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dir_path</strong> &#8211; directory path</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">path of the created directory</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cxworker.utils.minio_object_exists">
+<code class="descclassname">cxworker.utils.</code><code class="descname">minio_object_exists</code><span class="sig-paren">(</span><em>minio</em>, <em>bucket_name</em>, <em>object_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/utils/storage.html#minio_object_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.utils.minio_object_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the specified minio object exists or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>minio</strong> (<code class="xref py py-class docutils literal"><span class="pre">Minio</span></code>) &#8211; minio handle</li>
+<li><strong>bucket_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; bucket name</li>
+<li><strong>object_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; object name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">true if the specified minio object exists, false otherwise</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+    </p>
+  </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108491604-2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-108491604-2');
+</script>
+
+
+
+  </body>
+</html>

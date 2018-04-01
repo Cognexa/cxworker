@@ -1,0 +1,18 @@
+======================================
+``cxworker.runner.runner_entry_point``
+======================================
+
+.. automodule:: cxworker.runner.runner_entry_point
+
+
+.. currentmodule:: cxworker.runner.runner_entry_point
+
+
+Functions
+=========
+
+- :py:func:`run`:
+  Create a runner and list on the configured port for job ``InputMessage`` s.
+
+
+.. autofunction:: run

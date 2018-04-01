@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>cxworker.shepherd &#8212; cxworker 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/highlight.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="cxworker.utils" href="cxworker.utils.html" />
+    <link rel="prev" title="cxworker.sheep" href="cxworker.sheep.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          cxworker</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../tutorial.html">Introduction</a></li>
+                <li><a href="../bare_sheep.html">Bare Sheep</a></li>
+                <li><a href="../docker_sheep.html">Docker Sheep</a></li>
+                <li><a href="../runners.html">Runners</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="index.html">Package Reference</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Pages <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+<div class="side_nav">
+    <a href="cxworker.sheep.html" title="Previous Chapter: cxworker.sheep"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; cxworker.sheep</span>
+    </a>
+    </div>
+<div class="side_nav">
+    <a href="cxworker.utils.html" title="Next Chapter: cxworker.utils"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">cxworker.utils &raquo;</span>
+    </a>
+    </div><ul>
+<li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">cxworker.shepherd</span></code></a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+
+<form action="../search.html" method="get" class="searchbox">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form><div class="side_nav">
+	<h4>Related projects</h4>
+</div>
+<ul class="nav nav-list">
+	<li><a href="https://cxflow.org">cxflow</a></li>
+	<li><a href="https://tensorflow.cxflow.org">cxflow-tensorflow</a></li>
+	<li><a href="https://cxtream.org">cxtream (c++)</a></li>
+</ul>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="module-cxworker.shepherd">
+<span id="cxworker-shepherd"></span><h1><code class="docutils literal"><span class="pre">cxworker.shepherd</span></code><a class="headerlink" href="#module-cxworker.shepherd" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="#cxworker.shepherd.Shepherd" title="cxworker.shepherd.Shepherd"><code class="xref py py-class docutils literal"><span class="pre">Shepherd</span></code></a>:
+Manages creation and access to a configured set of sheep</li>
+</ul>
+<dl class="class">
+<dt id="cxworker.shepherd.Shepherd">
+<em class="property">class </em><code class="descclassname">cxworker.shepherd.</code><code class="descname">Shepherd</code><span class="sig-paren">(</span><em>registry_config</em>, <em>sheep_config</em>, <em>data_root</em>, <em>minio</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Manages creation and access to a configured set of sheep</p>
+<img src="../_images/inheritance-e4860969e97820ad6f5fdf205dd87c9306c22eb9.png" alt="Inheritance diagram of Shepherd" usemap="#inheritance4ae4b0010d" class="inheritance"/>
+<map id="inheritance4ae4b0010d" name="inheritance4ae4b0010d">
+<area shape="rect" id="node1" title="Manages creation and access to a configured set of sheep" alt="" coords="5,5,88,31"/>
+</map>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>sheep_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the sheep with the given <code class="docutils literal"><span class="pre">sheep_id</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sheep_id</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; sheep id</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">BaseSheep</span></code></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">sheep with the given <code class="docutils literal"><span class="pre">sheep_id</span></code></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>UnknownSheepError</strong> &#8211; if the given <code class="docutils literal"><span class="pre">sheep_id</span></code> is not known to this shepherd</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>registry_config</em>, <em>sheep_config</em>, <em>data_root</em>, <em>minio</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create mighty Shepherd.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>registry_config</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal"><span class="pre">RegistryConfig</span></code>]) &#8211; optional docker registry config</li>
+<li><strong>sheep_config</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Mapping" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Mapping</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Any" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Any</span></code></a>]]) &#8211; sheep config</li>
+<li><strong>data_root</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; directory where the task/sheep directories will be managed</li>
+<li><strong>minio</strong> (<code class="xref py py-class docutils literal"><span class="pre">Minio</span></code>) &#8211; Minio handle</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.dequeue_and_feed_jobs">
+<code class="descname">dequeue_and_feed_jobs</code><span class="sig-paren">(</span><em>sheep_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.dequeue_and_feed_jobs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.dequeue_and_feed_jobs" title="Permalink to this definition">¶</a></dt>
+<dd><p>De-queue jobs, prepare working directories and send <code class="docutils literal"><span class="pre">InputMessage</span></code> to the specified sheep in an end-less
+loop.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sheep_id</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; sheep id to be fed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.enqueue_job">
+<code class="descname">enqueue_job</code><span class="sig-paren">(</span><em>job_id</em>, <em>job_meta</em>, <em>sheep_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.enqueue_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.enqueue_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>En-queue the given job for execution. If specified, use a certain sheep.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>job_id</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; job id</li>
+<li><strong>job_meta</strong> (<code class="xref py py-class docutils literal"><span class="pre">ModelModel</span></code>) &#8211; job meta data (model name and version)</li>
+<li><strong>sheep_id</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]) &#8211; optional sheep id, if not specified use first sheep available</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.get_status">
+<code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get status information for all sheep</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Generator" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Generator</span></code></a>[<code class="xref py py-class docutils literal"><span class="pre">Tuple</span></code>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">SheepModel</span></code>], <code class="docutils literal"><span class="pre">None</span></code>, <code class="docutils literal"><span class="pre">None</span></code>]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a generator of status information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.health_check">
+<code class="descname">health_check</code><span class="sig-paren">(</span><em>sheep_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.health_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.health_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Periodically check if the specified sheep is running and resolve its in-progress jobs if not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sheep_id</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; id of the sheep to be checked</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.is_job_done">
+<code class="descname">is_job_done</code><span class="sig-paren">(</span><em>job_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.is_job_done"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.is_job_done" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the specified job is already done.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>job_id</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; id of the job to be checked</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>UnknownJobError</strong> &#8211; if the job is not ready nor it is known to this shepherd</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">job ready flag</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.listen">
+<code class="descname">listen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.listen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.listen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Poll the sheep output sockets, process sheep outputs and clean-up working directories in an end-less loop.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.slaughter_all">
+<code class="descname">slaughter_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.slaughter_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.slaughter_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slaughter all sheep.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.slaughter_sheep">
+<code class="descname">slaughter_sheep</code><span class="sig-paren">(</span><em>sheep_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.slaughter_sheep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.slaughter_sheep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slaughter (kill) the specified sheep. In particular, it&#8217;s container and socked are going to be terminated,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sheep_id</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cxworker.shepherd.Shepherd.start_sheep">
+<code class="descname">start_sheep</code><span class="sig-paren">(</span><em>sheep_id</em>, <em>model</em>, <em>version</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/shepherd/shepherd.html#Shepherd.start_sheep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.shepherd.Shepherd.start_sheep" title="Permalink to this definition">¶</a></dt>
+<dd><p>(Re)Start the sheep with the given <code class="docutils literal"><span class="pre">sheep_id</span></code> and configure it to run the specified <code class="docutils literal"><span class="pre">model</span></code>:<code class="docutils literal"><span class="pre">version</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sheep_id</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; sheep id to be (re)started</li>
+<li><strong>model</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model name to be loaded</li>
+<li><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; mode version to be loaded</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+    </p>
+  </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108491604-2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-108491604-2');
+</script>
+
+
+
+  </body>
+</html>
