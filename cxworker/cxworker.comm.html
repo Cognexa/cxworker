@@ -130,8 +130,6 @@
 <div class="section" id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="#cxworker.comm.Message" title="cxworker.comm.Message"><code class="xref py py-class docutils literal"><span class="pre">Message</span></code></a>:
-Base zmq socket message.</li>
 <li><a class="reference internal" href="#cxworker.comm.InputMessage" title="cxworker.comm.InputMessage"><code class="xref py py-class docutils literal"><span class="pre">InputMessage</span></code></a>:
 Message informing the runner about a job being ready to be processed.</li>
 <li><a class="reference internal" href="#cxworker.comm.DoneMessage" title="cxworker.comm.DoneMessage"><code class="xref py py-class docutils literal"><span class="pre">DoneMessage</span></code></a>:
@@ -143,34 +141,6 @@ Static helper class for sending and receiving messages through zmq sockets.</li>
 <li><a class="reference internal" href="#cxworker.comm.JobDoneNotifier" title="cxworker.comm.JobDoneNotifier"><code class="xref py py-class docutils literal"><span class="pre">JobDoneNotifier</span></code></a>:
 Simple notifier build over green zmq PUB-SUB sockets.</li>
 </ul>
-<dl class="class">
-<dt id="cxworker.comm.Message">
-<em class="property">class </em><code class="descclassname">cxworker.comm.</code><code class="descname">Message</code><span class="sig-paren">(</span><em>raw_data=None</em>, <em>trusted_data=None</em>, <em>deserialize_mapping=None</em>, <em>init=True</em>, <em>partial=True</em>, <em>strict=True</em>, <em>validate=False</em>, <em>app_data=None</em>, <em>lazy=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/messages.html#Message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.Message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">schematics.deprecated.Model</span></code></p>
-<p>Base zmq socket message.</p>
-<img src="../_images/inheritance-253537a0a418f07a22470f85215b343f7c1d9ec4.png" alt="Inheritance diagram of Message" usemap="#inheritancefd417ed936" class="inheritance"/>
-<map id="inheritancefd417ed936" name="inheritancefd417ed936">
-<area shape="rect" id="node1" title="Base zmq socket message." alt="" coords="357,29,436,55"/>
-<area shape="rect" id="node2" title="Enclosure for fields and validation. Same pattern deployed by Django" alt="" coords="237,29,309,55"/>
-<area shape="rect" id="node3" title="Compatibility layer for previous deprecated Schematics Model API." alt="" coords="5,29,189,55"/>
-</map>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<dl class="attribute">
-<dt id="cxworker.comm.Message.identity">
-<code class="descname">identity</code><em class="property"> = &lt;StringType() instance on Message as 'identity'&gt;</em><a class="headerlink" href="#cxworker.comm.Message.identity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Optional identity (for zmq ROUTER sockets).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cxworker.comm.Message.job_id">
-<code class="descname">job_id</code><em class="property"> = &lt;StringType() instance on Message as 'job_id'&gt;</em><a class="headerlink" href="#cxworker.comm.Message.job_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>cxworker</strong> job id.</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="class">
 <dt id="cxworker.comm.InputMessage">
 <em class="property">class </em><code class="descclassname">cxworker.comm.</code><code class="descname">InputMessage</code><span class="sig-paren">(</span><em>raw_data=None</em>, <em>trusted_data=None</em>, <em>deserialize_mapping=None</em>, <em>init=True</em>, <em>partial=True</em>, <em>strict=True</em>, <em>validate=False</em>, <em>app_data=None</em>, <em>lazy=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/comm/messages.html#InputMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.comm.InputMessage" title="Permalink to this definition">¶</a></dt>

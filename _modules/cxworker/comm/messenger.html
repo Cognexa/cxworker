@@ -169,6 +169,9 @@
         <span class="k">except</span> <span class="n">ZMQBaseError</span> <span class="k">as</span> <span class="n">zmq_error</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MessageError</span><span class="p">(</span><span class="s1">&#39;Failed to receive message&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">zmq_error</span>
 
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">Message</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;`</span><span class="si">{}</span><span class="s1">` is not a message&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">message</span><span class="p">))))</span>
+
         <span class="c1"># check if message type is expected</span>
         <span class="k">if</span> <span class="n">expected_message_types</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expected_message_types</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">UnexpectedMessageTypeError</span><span class="p">(</span><span class="s1">&#39;Unexpected message type `</span><span class="si">{}</span><span class="s1">`. Expected message types are </span><span class="si">{}</span><span class="s1">.&#39;</span>
