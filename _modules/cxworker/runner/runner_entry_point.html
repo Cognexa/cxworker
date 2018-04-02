@@ -149,14 +149,11 @@
     <span class="n">runner</span> <span class="o">=</span> <span class="n">cx</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">create_object</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">class_</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config_path</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">stream</span><span class="p">))</span>
 
     <span class="c1"># listen for input messages</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">runner</span><span class="o">.</span><span class="n">process_all</span><span class="p">()</span>
-    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Keyboard interrupt caught. Stopping.&#39;</span><span class="p">)</span></div>
+    <span class="n">runner</span><span class="o">.</span><span class="n">process_all</span><span class="p">()</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">run</span><span class="p">()</span>
+    <span class="n">run</span><span class="p">()</span>  <span class="c1"># pragma: no cover</span>
 </pre></div>
 
     </div>
