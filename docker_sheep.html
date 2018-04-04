@@ -153,7 +153,7 @@ incoming jobs at a socket bind to port <strong>9999</strong>.</p>
 <span class="n">RUN</span> <span class="n">chmod</span> <span class="mi">600</span> <span class="o">-</span><span class="n">R</span> <span class="o">/</span><span class="n">root</span><span class="o">/.</span><span class="n">ssh</span>
 <span class="n">RUN</span> <span class="n">ssh</span><span class="o">-</span><span class="n">keyscan</span> <span class="o">-</span><span class="n">H</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">root</span><span class="o">/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">known_hosts</span>
 
-<span class="n">RUN</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">ssh</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cognexa</span><span class="o">/</span><span class="n">cxworker</span><span class="o">.</span><span class="n">git</span><span class="nd">@dir</span>
+<span class="n">RUN</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">ssh</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cognexa</span><span class="o">/</span><span class="n">cxworker</span><span class="o">.</span><span class="n">git</span><span class="nd">@dev</span>
 
 <span class="n">ENV</span> <span class="n">LD_LIBRARY_PATH</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span>
 
@@ -164,7 +164,7 @@ incoming jobs at a socket bind to port <strong>9999</strong>.</p>
 <span class="n">ADD</span> <span class="o">.</span> <span class="o">.</span>
 
 <span class="c1"># Replace this with your model of choice</span>
-<span class="n">ADD</span> <span class="n">cxflow</span><span class="o">-</span><span class="n">test</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span> <span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+<span class="n">ADD</span> <span class="n">cxflow</span><span class="o">-</span><span class="n">test</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span> <span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
 
 <span class="n">CMD</span> <span class="n">cxworker</span><span class="o">-</span><span class="n">runner</span> <span class="o">/</span><span class="n">project</span>
 </pre></div>

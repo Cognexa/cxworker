@@ -15,7 +15,7 @@ Classes
   Common base class for all exceptions
 
 - :py:class:`DockerContainer`:
-  Undocumented.
+  Helper class for running and managing docker containers.
 
 - :py:class:`DockerImage`:
   Undocumented.
