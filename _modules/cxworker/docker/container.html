@@ -109,17 +109,15 @@
       
   <h1>Source code for cxworker.docker.container</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
 
-<span class="kn">from</span> <span class="nn">cxworker.docker</span> <span class="k">import</span> <span class="n">DockerImage</span>
+<span class="kn">from</span> <span class="nn">.image</span> <span class="k">import</span> <span class="n">DockerImage</span>
 <span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">DockerError</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">run_docker_command</span><span class="p">,</span> <span class="n">kill_blocking_container</span>
 
 
 <div class="viewcode-block" id="DockerContainer"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerContainer">[docs]</a><span class="k">class</span> <span class="nc">DockerContainer</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Helper class for running and managing docker containers.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Helper class for running and managing docker containers.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="DockerContainer.__init__"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerContainer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">image</span><span class="p">:</span> <span class="n">DockerImage</span><span class="p">,</span>
@@ -127,7 +125,8 @@
                  <span class="n">runtime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">env</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">bind_mounts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">ports</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">ports</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">command</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize :py:class`DockerContainer`.</span>
 
@@ -136,6 +135,8 @@
 <span class="sd">        :param runtime: docker runtime flag (e.g. ``nvidia``)</span>
 <span class="sd">        :param env: additional environment variables</span>
 <span class="sd">        :param bind_mounts: optional host-&gt;container bind mounts mapping</span>
+<span class="sd">        :param ports: optional host-&gt;container port mapping</span>
+<span class="sd">        :param command: optional docker container run command</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_image</span> <span class="o">=</span> <span class="n">image</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_autoremove</span> <span class="o">=</span> <span class="n">autoremove</span>
@@ -143,23 +144,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">runtime</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">env</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mounts</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">bind_mounts</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ports</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">ports</span> <span class="ow">or</span> <span class="p">{}</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ports</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">ports</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">command</span></div>
 
-    <span class="k">def</span> <span class="nf">add_port_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_port</span><span class="p">,</span> <span class="n">container_port</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ports</span><span class="p">[</span><span class="n">host_port</span><span class="p">]</span> <span class="o">=</span> <span class="n">container_port</span>
-
-<div class="viewcode-block" id="DockerContainer.start"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerContainer.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DockerContainer._build_run_command"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerContainer._build_run_command">[docs]</a>    <span class="k">def</span> <span class="nf">_build_run_command</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Run the container</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Build docker container run command.</span>
 
+<span class="sd">        :return: built command</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Run given image in detached mode</span>
         <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="s1">&#39;-d&#39;</span><span class="p">]</span>
 
         <span class="c1"># Add configured port mappings</span>
         <span class="k">for</span> <span class="n">host_port</span><span class="p">,</span> <span class="n">container_port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ports</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">command</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0:</span><span class="si">{host}</span><span class="s1">:</span><span class="si">{container}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host_port</span><span class="p">,</span> <span class="n">container</span><span class="o">=</span><span class="n">container_port</span><span class="p">)]</span>
-            <span class="n">DockerContainer</span><span class="o">.</span><span class="n">kill_blocking_container</span><span class="p">(</span><span class="n">host_port</span><span class="p">)</span>
 
         <span class="c1"># Set environment variables</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="p">:</span>
@@ -168,11 +167,11 @@
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
 
-        <span class="c1"># If desired, remove the container when it exits</span>
+        <span class="c1"># If specified, remove the container when it exits</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_autoremove</span><span class="p">:</span>
             <span class="n">command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--rm&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Set runtime</span>
+        <span class="c1"># If specified, set the runtime (e.g. `nvidia`)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span><span class="p">:</span>
             <span class="n">command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--runtime=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span><span class="p">))</span>
 
@@ -187,76 +186,46 @@
         <span class="c1"># Positional args - the image of the container</span>
         <span class="n">command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="o">.</span><span class="n">full_name</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span> <span class="o">=</span> <span class="n">DockerContainer</span><span class="o">.</span><span class="n">run_docker_command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
+        <span class="c1"># If specified, append the run command</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">command</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command</span>
 
-<div class="viewcode-block" id="DockerContainer.kill"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerContainer.kill">[docs]</a>    <span class="k">def</span> <span class="nf">kill</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">command</span></div>
+
+<div class="viewcode-block" id="DockerContainer.start"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerContainer.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Run the container.&quot;&quot;&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_run_command</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">host_port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ports</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">kill_blocking_container</span><span class="p">(</span><span class="n">host_port</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Starting docker container with `</span><span class="si">%s</span><span class="s1">`&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">command</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span> <span class="o">=</span> <span class="n">run_docker_command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Started docker container `</span><span class="si">%s</span><span class="s1">`&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DockerContainer.kill"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerContainer.kill">[docs]</a>    <span class="k">def</span> <span class="nf">kill</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Kill the container.</span>
+<span class="sd">        Kill the underlying docker container.</span>
+
+<span class="sd">        :raise DockerError: if the container was not started yet (i.e., its ``container_id`` is not known)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">DockerError</span><span class="p">(</span><span class="s1">&#39;The container was not started yet&#39;</span><span class="p">)</span>
-        <span class="n">DockerContainer</span><span class="o">.</span><span class="n">run_docker_command</span><span class="p">([</span><span class="s1">&#39;kill&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span><span class="p">])</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Killing container `</span><span class="si">%s</span><span class="s1">`&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span><span class="p">)</span>
+        <span class="n">run_docker_command</span><span class="p">([</span><span class="s1">&#39;kill&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span> <span class="o">=</span> <span class="kc">None</span></div>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :return: True when the container is running, False otherwise</span>
+<span class="sd">        Check if the underlying docker container is still up and running.</span>
+<span class="sd">        Returns ``False`` if the container was not even started.</span>
+
+<span class="sd">        :return: docker container running flag</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">DockerError</span><span class="p">(</span><span class="s1">&#39;The container was not started yet&#39;</span><span class="p">)</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">DockerContainer</span><span class="o">.</span><span class="n">run_docker_command</span><span class="p">([</span><span class="s1">&#39;ps&#39;</span><span class="p">,</span> <span class="s1">&#39;--filter&#39;</span><span class="p">,</span> <span class="s1">&#39;id=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span><span class="p">)])</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">run_docker_command</span><span class="p">([</span><span class="s1">&#39;ps&#39;</span><span class="p">,</span> <span class="s1">&#39;--filter&#39;</span><span class="p">,</span> <span class="s1">&#39;id=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_container_id</span><span class="p">)])</span>
         <span class="c1"># If the command output contains more than one line, the container was found (the first line is a header)</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span>
-
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="DockerContainer.kill_blocking_container"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerContainer.kill_blocking_container">[docs]</a>    <span class="k">def</span> <span class="nf">kill_blocking_container</span><span class="p">(</span><span class="n">host_port</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        List all the running docker container mapping and attempt kill any container holding the given port.</span>
-
-<span class="sd">        :param host_port: host port to be freed</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">host_port</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">host_port</span><span class="p">)</span>
-        <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;docker&quot;</span><span class="p">,</span> <span class="s2">&quot;ps&quot;</span><span class="p">,</span> <span class="s2">&quot;--format&quot;</span><span class="p">,</span> <span class="s2">&quot;{{.Ports}}</span><span class="se">\t</span><span class="s2">{{.Names}}&quot;</span><span class="p">],</span>
-                                   <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
-        <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-        <span class="n">ps_info</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">ps_line</span> <span class="ow">in</span> <span class="n">ps_info</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ps_line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="n">port_mappings</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">ps_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">port_mapping</span> <span class="ow">in</span> <span class="n">port_mappings</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">):</span>
-                <span class="n">host_port_held</span> <span class="o">=</span> <span class="n">port_mapping</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">host_port_held</span> <span class="o">==</span> <span class="n">host_port</span><span class="p">:</span>
-                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Killing docker container `</span><span class="si">%s</span><span class="s1">` as it holds port </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host_port</span><span class="p">)</span>
-                    <span class="n">killing_process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;docker&#39;</span><span class="p">,</span> <span class="s1">&#39;kill&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">])</span>
-                    <span class="n">killing_process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-                    <span class="k">return</span></div>
-
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="DockerContainer.run_docker_command"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerContainer.run_docker_command">[docs]</a>    <span class="k">def</span> <span class="nf">run_docker_command</span><span class="p">(</span><span class="n">command</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Run and wait the given docker command. Return its stdout.</span>
-
-<span class="sd">        :param command: docker command to be run as a lex list</span>
-<span class="sd">        :raise DockerError: on failure</span>
-<span class="sd">        :return: command stdout</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;docker&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">command</span>
-        <span class="n">plain_command</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Running command `</span><span class="si">%s</span><span class="s1">`&#39;</span><span class="p">,</span> <span class="n">plain_command</span><span class="p">)</span>
-        <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
-        <span class="n">return_code</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-        <span class="n">stderr</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stderr</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Non-empty stderr when running command `</span><span class="si">%s</span><span class="s2">`: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">plain_command</span><span class="p">,</span> <span class="n">stderr</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">return_code</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">DockerError</span><span class="p">(</span><span class="s1">&#39;Running command `</span><span class="si">{}</span><span class="s1">` failed.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plain_command</span><span class="p">),</span> <span class="n">return_code</span><span class="p">,</span> <span class="n">stderr</span><span class="p">)</span>
-
-        <span class="n">stdout</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running command `</span><span class="si">%s</span><span class="s2">` yielded output: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">plain_command</span><span class="p">,</span> <span class="n">stdout</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">stdout</span></div></div>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span></div>
 </pre></div>
 
     </div>

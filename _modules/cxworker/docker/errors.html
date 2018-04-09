@@ -108,15 +108,26 @@
     <div class="col-md-9 content">
       
   <h1>Source code for cxworker.docker.errors</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">..sheep.errors</span> <span class="k">import</span> <span class="n">SheepError</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">..sheep.errors</span> <span class="k">import</span> <span class="n">SheepError</span>
 
 
 <div class="viewcode-block" id="DockerError"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerError">[docs]</a><span class="k">class</span> <span class="nc">DockerError</span><span class="p">(</span><span class="n">SheepError</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Error in execution of a docker command.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DockerError.__init__"><a class="viewcode-back" href="../../../cxworker/cxworker.docker.html#cxworker.docker.DockerError.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize new :py:class:`DockerError`.</span>
+
+<span class="sd">        :param msg: error message</span>
+<span class="sd">        :param rc: command return code</span>
+<span class="sd">        :param output: command output</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">rc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> (return code </span><span class="si">{}</span><span class="s1">) with output:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">rc</span><span class="p">,</span> <span class="n">output</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div></div>
 </pre></div>
 
     </div>

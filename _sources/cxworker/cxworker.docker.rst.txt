@@ -12,13 +12,13 @@ Classes
 =======
 
 - :py:class:`DockerError`:
-  Common base class for all exceptions
+  Error in execution of a docker command.
 
 - :py:class:`DockerContainer`:
   Helper class for running and managing docker containers.
 
 - :py:class:`DockerImage`:
-  Undocumented.
+  Helper class for running and managing docker images.
 
 
 
