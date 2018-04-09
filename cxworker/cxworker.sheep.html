@@ -223,7 +223,7 @@ Any unfinished jobs will be lost, socket connection will be reset.</p>
 
 <dl class="class">
 <dt id="cxworker.sheep.DockerSheep">
-<em class="property">class </em><code class="descclassname">cxworker.sheep.</code><code class="descname">DockerSheep</code><span class="sig-paren">(</span><em>config</em>, <em>registry_config</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/docker_sheep.html#DockerSheep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.DockerSheep" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cxworker.sheep.</code><code class="descname">DockerSheep</code><span class="sig-paren">(</span><em>config</em>, <em>registry_config</em>, <em>command=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/docker_sheep.html#DockerSheep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.DockerSheep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.sheep.base_sheep.BaseSheep</span></code></p>
 <p>Sheep running its jobs in docker containers.
 To enable GPU computation, specify the gpu devices in the configuration and sheep will attempt to
@@ -238,7 +238,7 @@ use <code class="docutils literal"><span class="pre">nvidia</span> <span class="
 </div>
 <dl class="method">
 <dt id="cxworker.sheep.DockerSheep.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>config</em>, <em>registry_config</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/docker_sheep.html#DockerSheep.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.DockerSheep.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>config</em>, <em>registry_config</em>, <em>command=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/docker_sheep.html#DockerSheep.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.DockerSheep.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create new <a class="reference internal" href="#cxworker.sheep.DockerSheep" title="cxworker.sheep.DockerSheep"><code class="xref py py-class docutils literal"><span class="pre">DockerSheep</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -247,6 +247,7 @@ use <code class="docutils literal"><span class="pre">nvidia</span> <span class="
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Any" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Any</span></code></a>]) &#8211; docker sheep configuration</li>
 <li><strong>registry_config</strong> (<code class="xref py py-class docutils literal"><span class="pre">RegistryConfig</span></code>) &#8211; docker registry configuration</li>
+<li><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.List" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]]) &#8211; optional docker container run command</li>
 <li><strong>kwargs</strong> &#8211; <a class="reference internal" href="#cxworker.sheep.BaseSheep" title="cxworker.sheep.BaseSheep"><code class="xref py py-class docutils literal"><span class="pre">BaseSheep</span></code></a>&#8216;s kwargs</li>
 </ul>
 </td>
