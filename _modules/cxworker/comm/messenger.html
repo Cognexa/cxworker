@@ -122,10 +122,6 @@
 <span class="sd">    Static helper class for sending and receiving messages through zmq sockets.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_MESSAGE_TYPES_MAPPING</span> <span class="o">=</span> <span class="p">{</span><span class="n">InputMessage</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span> <span class="n">InputMessage</span><span class="p">,</span>
-                              <span class="n">DoneMessage</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span> <span class="n">DoneMessage</span><span class="p">,</span>
-                              <span class="n">ErrorMessage</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span> <span class="n">ErrorMessage</span><span class="p">}</span>
-
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Messenger.send"><a class="viewcode-back" href="../../../cxworker/cxworker.comm.html#cxworker.comm.Messenger.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="n">socket</span><span class="p">:</span> <span class="n">zmq</span><span class="o">.</span><span class="n">Socket</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">response_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Message</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -137,12 +133,11 @@
 <span class="sd">        :raise MessengerError: if it fails</span>
 <span class="sd">        :raise UnknownMessageTypeError: if the message to be send is of unknown type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># check if the message type is known</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Messenger</span><span class="o">.</span><span class="n">_MESSAGE_TYPES_MAPPING</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="n">UnknownMessageTypeError</span><span class="p">(</span><span class="s1">&#39;Unknown message type `</span><span class="si">{}</span><span class="s1">`. Known message types are </span><span class="si">{}</span><span class="s1">.&#39;</span>
-                                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">message</span><span class="p">)),</span> <span class="nb">list</span><span class="p">(</span><span class="n">Messenger</span><span class="o">.</span><span class="n">_MESSAGE_TYPES_MAPPING</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">Message</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;`</span><span class="si">{}</span><span class="s1">` is not a message&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">message</span><span class="p">))))</span>
+
         <span class="c1"># serialize and send the message</span>
-        <span class="n">serialized_message</span> <span class="o">=</span> <span class="n">encode_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">serialized_message</span> <span class="o">=</span> <span class="p">[</span><span class="n">encode_message</span><span class="p">(</span><span class="n">message</span><span class="p">)]</span>
         <span class="k">if</span> <span class="n">response_to</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">response_to</span><span class="o">.</span><span class="n">identity</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="n">serialized_message</span> <span class="o">=</span> <span class="p">[</span><span class="n">response_to</span><span class="o">.</span><span class="n">identity</span><span class="p">]</span> <span class="o">+</span> <span class="n">serialized_message</span>
         <span class="k">try</span><span class="p">:</span>
@@ -174,14 +169,8 @@
         <span class="k">except</span> <span class="n">ZMQBaseError</span> <span class="k">as</span> <span class="n">zmq_error</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MessageError</span><span class="p">(</span><span class="s1">&#39;Failed to receive message&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">zmq_error</span>
 
-        <span class="c1"># check if message type is known</span>
-        <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">message_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Messenger</span><span class="o">.</span><span class="n">_MESSAGE_TYPES_MAPPING</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="n">UnknownMessageTypeError</span><span class="p">(</span><span class="s1">&#39;Unknown message type `</span><span class="si">{}</span><span class="s1">`. Known message types are </span><span class="si">{}</span><span class="s1">.&#39;</span>
-                                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">message_type</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">Messenger</span><span class="o">.</span><span class="n">_MESSAGE_TYPES_MAPPING</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
-
         <span class="c1"># check if message type is expected</span>
-        <span class="n">message_class</span> <span class="o">=</span> <span class="n">Messenger</span><span class="o">.</span><span class="n">_MESSAGE_TYPES_MAPPING</span><span class="p">[</span><span class="n">message</span><span class="o">.</span><span class="n">message_type</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">expected_message_types</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">message_class</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expected_message_types</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">expected_message_types</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expected_message_types</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">UnexpectedMessageTypeError</span><span class="p">(</span><span class="s1">&#39;Unexpected message type `</span><span class="si">{}</span><span class="s1">`. Expected message types are </span><span class="si">{}</span><span class="s1">.&#39;</span>
                                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">message_type</span><span class="p">,</span> <span class="n">expected_message_types</span><span class="p">))</span>
         <span class="c1"># create and return the message</span>

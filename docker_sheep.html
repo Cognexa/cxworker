@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Bare Sheep &#8212; cxworker 0.1.0 documentation</title>
+    <title>Docker Sheep &#8212; cxworker 0.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -99,7 +99,7 @@
     <a href="runners.html" title="Next Chapter: Runners"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Runners &raquo;</span>
     </a>
     </div><ul>
-<li><a class="reference internal" href="#">Bare Sheep</a><ul>
+<li><a class="reference internal" href="#">Docker Sheep</a><ul>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#model-name-and-version">Model Name and Version</a></li>
 </ul>
@@ -124,8 +124,8 @@
       </div>
     <div class="col-md-9 content">
       
-  <div class="section" id="bare-sheep">
-<h1>Bare Sheep<a class="headerlink" href="#bare-sheep" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="docker-sheep">
+<h1>Docker Sheep<a class="headerlink" href="#docker-sheep" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="cxworker/cxworker.sheep.html#cxworker.sheep.DockerSheep" title="cxworker.sheep.DockerSheep"><code class="xref py py-class docutils literal"><span class="pre">cxworker.sheep.DockerSheep</span></code></a> does exactly the same as <a class="reference external" href="bare_sheep.html">bare sheep</a> except it
 runs the <em>runner</em> in a docker. Similarly to the bare sheep&#8217;s runner, docker runner is expected to listen for
 incoming jobs at a socket bind to port <strong>9999</strong>.</p>
@@ -147,13 +147,13 @@ incoming jobs at a socket bind to port <strong>9999</strong>.</p>
 <p>Example Dockerfile follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">FROM</span> <span class="n">cognexa</span><span class="o">/</span><span class="n">cxflow</span><span class="p">:</span><span class="n">latest</span>
 
-<span class="n">RUN</span> <span class="n">pacman</span> <span class="o">-</span><span class="n">Sy</span> <span class="o">--</span><span class="n">noconfirm</span> <span class="o">--</span><span class="n">needed</span> <span class="n">python</span><span class="o">-</span><span class="n">pyzmq</span> <span class="n">openssh</span> <span class="n">python</span><span class="o">-</span><span class="n">numpy</span> <span class="o">&amp;&amp;</span> <span class="n">paccache</span> <span class="o">-</span><span class="n">rfk0</span>
+<span class="n">RUN</span> <span class="n">pacman</span> <span class="o">-</span><span class="n">Syu</span> <span class="o">--</span><span class="n">noconfirm</span> <span class="o">--</span><span class="n">needed</span> <span class="n">python</span><span class="o">-</span><span class="n">pyzmq</span> <span class="n">openssh</span> <span class="n">python</span><span class="o">-</span><span class="n">numpy</span> <span class="o">&amp;&amp;</span> <span class="n">paccache</span> <span class="o">-</span><span class="n">rfk0</span>
 
 <span class="n">ADD</span> <span class="n">ssh</span> <span class="o">/</span><span class="n">root</span><span class="o">/.</span><span class="n">ssh</span>
 <span class="n">RUN</span> <span class="n">chmod</span> <span class="mi">600</span> <span class="o">-</span><span class="n">R</span> <span class="o">/</span><span class="n">root</span><span class="o">/.</span><span class="n">ssh</span>
 <span class="n">RUN</span> <span class="n">ssh</span><span class="o">-</span><span class="n">keyscan</span> <span class="o">-</span><span class="n">H</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">root</span><span class="o">/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">known_hosts</span>
 
-<span class="n">RUN</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">ssh</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cognexa</span><span class="o">/</span><span class="n">cxworker</span><span class="o">.</span><span class="n">git</span><span class="nd">@dir</span>
+<span class="n">RUN</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">ssh</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cognexa</span><span class="o">/</span><span class="n">cxworker</span><span class="o">.</span><span class="n">git</span>
 
 <span class="n">ENV</span> <span class="n">LD_LIBRARY_PATH</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span>
 
@@ -164,7 +164,7 @@ incoming jobs at a socket bind to port <strong>9999</strong>.</p>
 <span class="n">ADD</span> <span class="o">.</span> <span class="o">.</span>
 
 <span class="c1"># Replace this with your model of choice</span>
-<span class="n">ADD</span> <span class="n">cxflow</span><span class="o">-</span><span class="n">test</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span> <span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+<span class="n">ADD</span> <span class="n">cxflow</span><span class="o">-</span><span class="n">test</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span> <span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
 
 <span class="n">CMD</span> <span class="n">cxworker</span><span class="o">-</span><span class="n">runner</span> <span class="o">/</span><span class="n">project</span>
 </pre></div>

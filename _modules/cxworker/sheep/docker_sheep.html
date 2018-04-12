@@ -109,12 +109,13 @@
       
   <h1>Source code for cxworker.sheep.docker_sheep</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="kn">from</span> <span class="nn">schematics.types</span> <span class="k">import</span> <span class="n">BooleanType</span>
 
 <span class="kn">from</span> <span class="nn">.base_sheep</span> <span class="k">import</span> <span class="n">BaseSheep</span>
-<span class="kn">from</span> <span class="nn">..docker</span> <span class="k">import</span> <span class="n">DockerContainer</span><span class="p">,</span> <span class="n">DockerImage</span>
+<span class="kn">from</span> <span class="nn">.errors</span> <span class="k">import</span> <span class="n">SheepConfigurationError</span>
+<span class="kn">from</span> <span class="nn">..docker</span> <span class="k">import</span> <span class="n">DockerContainer</span><span class="p">,</span> <span class="n">DockerImage</span><span class="p">,</span> <span class="n">DockerError</span>
 <span class="kn">from</span> <span class="nn">..shepherd.config</span> <span class="k">import</span> <span class="n">RegistryConfig</span>
 
 
@@ -148,19 +149,22 @@
     <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">BaseSheep</span><span class="o">.</span><span class="n">Config</span><span class="p">):</span>
         <span class="n">autoremove_containers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">BooleanType</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<div class="viewcode-block" id="DockerSheep.__init__"><a class="viewcode-back" href="../../../cxworker/cxworker.sheep.html#cxworker.sheep.DockerSheep.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">registry_config</span><span class="p">:</span> <span class="n">RegistryConfig</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DockerSheep.__init__"><a class="viewcode-back" href="../../../cxworker/cxworker.sheep.html#cxworker.sheep.DockerSheep.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">registry_config</span><span class="p">:</span> <span class="n">RegistryConfig</span><span class="p">,</span>
+                 <span class="n">command</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create new :py:class:`DockerSheep`.</span>
 
 <span class="sd">        :param config: docker sheep configuration</span>
 <span class="sd">        :param registry_config: docker registry configuration</span>
+<span class="sd">        :param command: optional docker container run command</span>
 <span class="sd">        :param kwargs: :py:class:`BaseSheep`&#39;s kwargs</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">Config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_registry_config</span> <span class="o">=</span> <span class="n">registry_config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DockerContainer</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DockerImage</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DockerImage</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">command</span></div>
 
 <div class="viewcode-block" id="DockerSheep._load_model"><a class="viewcode-back" href="../../../cxworker/cxworker.sheep.html#cxworker.sheep.DockerSheep._load_model">[docs]</a>    <span class="k">def</span> <span class="nf">_load_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model_version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -171,7 +175,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_load_model</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">model_version</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_image</span> <span class="o">=</span> <span class="n">DockerImage</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">model_version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registry_config</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">DockerError</span> <span class="k">as</span> <span class="n">de</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SheepConfigurationError</span><span class="p">(</span><span class="s1">&#39;Specified model name `</span><span class="si">{}</span><span class="s1">` (version `</span><span class="si">{}</span><span class="s1">`) cannot be loaded.&#39;</span>
+                                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">model_version</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">de</span></div>
 
 <div class="viewcode-block" id="DockerSheep.start"><a class="viewcode-back" href="../../../cxworker/cxworker.sheep.html#cxworker.sheep.DockerSheep.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model_version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -188,16 +196,22 @@
         <span class="n">runtime</span> <span class="o">=</span> <span class="s2">&quot;nvidia&quot;</span> <span class="k">if</span> <span class="n">visible_gpu_numbers</span> <span class="k">else</span> <span class="kc">None</span>
 
         <span class="c1"># create and start :py:class:`DockerContainer`</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_container</span> <span class="o">=</span> <span class="n">DockerContainer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">autoremove_containers</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">add_port_mapping</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CONTAINER_POINT</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">add_bind_mount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sheep_data_root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheep_data_root</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_container</span> <span class="o">=</span> <span class="n">DockerContainer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">autoremove_containers</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span><span class="p">,</span>
+                                          <span class="n">bind_mounts</span><span class="o">=</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sheep_data_root</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheep_data_root</span><span class="p">},</span>
+                                          <span class="n">ports</span><span class="o">=</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CONTAINER_POINT</span><span class="p">},</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_command</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">DockerError</span> <span class="k">as</span> <span class="n">de</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_container</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">raise</span> <span class="n">SheepConfigurationError</span><span class="p">(</span><span class="s1">&#39;Specified model name `</span><span class="si">{}</span><span class="s1">` (version `</span><span class="si">{}</span><span class="s1">`) cannot be started.&#39;</span>
+                                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">model_version</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">de</span></div>
 
 <div class="viewcode-block" id="DockerSheep.slaughter"><a class="viewcode-back" href="../../../cxworker/cxworker.sheep.html#cxworker.sheep.DockerSheep.slaughter">[docs]</a>    <span class="k">def</span> <span class="nf">slaughter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Kill the underlying docker container.&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">slaughter</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_container</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_container</span> <span class="o">=</span> <span class="kc">None</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
