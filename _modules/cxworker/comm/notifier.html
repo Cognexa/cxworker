@@ -108,9 +108,11 @@
     <div class="col-md-9 content">
       
   <h1>Source code for cxworker.comm.notifier</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span>
 
 <span class="kn">import</span> <span class="nn">zmq.green</span> <span class="k">as</span> <span class="nn">zmq</span>
+<span class="kn">from</span> <span class="nn">zmq.error</span> <span class="k">import</span> <span class="n">ZMQError</span>
 <span class="kn">import</span> <span class="nn">gevent</span>
 
 

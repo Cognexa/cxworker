@@ -135,8 +135,11 @@
 <span class="sd">    Manages creation and access to a configured set of sheep</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Shepherd.__init__"><a class="viewcode-back" href="../../../cxworker/cxworker.shepherd.html#cxworker.shepherd.Shepherd.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">registry_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RegistryConfig</span><span class="p">],</span>
-                 <span class="n">sheep_config</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">data_root</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">minio</span><span class="p">:</span> <span class="n">Minio</span><span class="p">):</span>
+<div class="viewcode-block" id="Shepherd.__init__"><a class="viewcode-back" href="../../../cxworker/cxworker.shepherd.html#cxworker.shepherd.Shepherd.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">sheep_config</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+                 <span class="n">data_root</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">minio</span><span class="p">:</span> <span class="n">Minio</span><span class="p">,</span>
+                 <span class="n">registry_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RegistryConfig</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create mighty Shepherd.</span>
 
@@ -145,20 +148,20 @@
 <span class="sd">        :param data_root: directory where the task/sheep directories will be managed</span>
 <span class="sd">        :param minio: Minio handle</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">sheep_config</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;docker&quot;</span> <span class="ow">and</span> <span class="n">registry_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">SheepConfigurationError</span><span class="p">(</span><span class="s2">&quot;To use docker sheep, you need to configure a registry URL&quot;</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">minio</span> <span class="o">=</span> <span class="n">minio</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">poller</span> <span class="o">=</span> <span class="n">zmq</span><span class="o">.</span><span class="n">Poller</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sheep</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BaseSheep</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">notifier</span> <span class="o">=</span> <span class="n">JobDoneNotifier</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">sheep_id</span><span class="p">,</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">sheep_config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">socket</span> <span class="o">=</span> <span class="n">zmq</span><span class="o">.</span><span class="n">Context</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">zmq</span><span class="o">.</span><span class="n">DEALER</span><span class="p">)</span>
             <span class="n">sheep_type</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
             <span class="n">sheep_data_root</span> <span class="o">=</span> <span class="n">create_clean_dir</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_root</span><span class="p">,</span> <span class="n">sheep_id</span><span class="p">))</span>
             <span class="n">common_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;socket&#39;</span><span class="p">:</span> <span class="n">socket</span><span class="p">,</span> <span class="s1">&#39;sheep_data_root&#39;</span><span class="p">:</span> <span class="n">sheep_data_root</span><span class="p">}</span>
-
             <span class="k">if</span> <span class="n">sheep_type</span> <span class="o">==</span> <span class="s2">&quot;docker&quot;</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">registry_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="n">SheepConfigurationError</span><span class="p">(</span><span class="s2">&quot;To use docker sheep, you need to configure a registry URL&quot;</span><span class="p">)</span>
                 <span class="n">sheep</span> <span class="o">=</span> <span class="n">DockerSheep</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">registry_config</span><span class="o">=</span><span class="n">registry_config</span><span class="p">,</span> <span class="o">**</span><span class="n">common_kwargs</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">sheep_type</span> <span class="o">==</span> <span class="s2">&quot;bare&quot;</span><span class="p">:</span>
                 <span class="n">sheep</span> <span class="o">=</span> <span class="n">BareSheep</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">common_kwargs</span><span class="p">)</span>
@@ -169,7 +172,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">sheep</span><span class="p">[</span><span class="n">sheep_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">sheep</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">poller</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">zmq</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
             <span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dequeue_and_feed_jobs</span><span class="p">,</span> <span class="n">sheep_id</span><span class="p">))</span>
-            <span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">health_check</span><span class="p">,</span> <span class="n">sheep_id</span><span class="p">))</span></div>
+            <span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">health_check</span><span class="p">,</span> <span class="n">sheep_id</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifier</span><span class="p">:</span> <span class="n">JobDoneNotifier</span> <span class="o">=</span> <span class="n">JobDoneNotifier</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_listener</span> <span class="o">=</span> <span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listen</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Shepherd.__getitem__"><a class="viewcode-back" href="../../../cxworker/cxworker.shepherd.html#cxworker.shepherd.Shepherd.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheep_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseSheep</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -242,7 +248,8 @@
                     <span class="n">sheep</span><span class="o">.</span><span class="n">in_progress</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">notifier</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span>
             <span class="k">except</span> <span class="n">SheepError</span> <span class="k">as</span> <span class="n">se</span><span class="p">:</span>
-                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Failed to check sheep</span><span class="se">\&#39;</span><span class="s1">s health due to the following exception: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">se</span><span class="p">))</span></div>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Failed to check sheep</span><span class="se">\&#39;</span><span class="s1">s health &#39;</span>  <span class="c1"># pragma: no cover</span>
+                                <span class="s1">&#39;due to the following exception: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">se</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Shepherd.dequeue_and_feed_jobs"><a class="viewcode-back" href="../../../cxworker/cxworker.shepherd.html#cxworker.shepherd.Shepherd.dequeue_and_feed_jobs">[docs]</a>    <span class="k">def</span> <span class="nf">dequeue_and_feed_jobs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheep_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -351,7 +358,12 @@
                 <span class="k">if</span> <span class="n">job_id</span> <span class="ow">in</span> <span class="n">sheep</span><span class="o">.</span><span class="n">jobs_meta</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">or</span> <span class="n">job_id</span> <span class="ow">in</span> <span class="n">sheep</span><span class="o">.</span><span class="n">in_progress</span><span class="p">:</span>
                     <span class="k">return</span> <span class="kc">False</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">UnknownJobError</span><span class="p">(</span><span class="s1">&#39;Job `</span><span class="si">{}</span><span class="s1">` is not know to this worker&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_id</span><span class="p">))</span></div></div>
+                <span class="k">raise</span> <span class="n">UnknownJobError</span><span class="p">(</span><span class="s1">&#39;Job `</span><span class="si">{}</span><span class="s1">` is not know to this worker&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job_id</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slaughter_all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notifier</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_listener</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span></div>
 </pre></div>
 
     </div>
