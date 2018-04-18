@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>cxworker.shepherd.shepherd &#8212; cxworker 0.1.0 documentation</title>
+    <title>cxworker.shepherd.shepherd &#8212; cxworker 0.2.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.1.0',
+        VERSION:     '0.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -50,7 +50,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html">
           cxworker</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -119,6 +119,7 @@
 <span class="kn">import</span> <span class="nn">zmq.green</span> <span class="k">as</span> <span class="nn">zmq</span>
 <span class="kn">from</span> <span class="nn">minio</span> <span class="k">import</span> <span class="n">Minio</span>
 
+<span class="kn">from</span> <span class="nn">cxworker.constants</span> <span class="k">import</span> <span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="n">DONE_FILE</span><span class="p">,</span> <span class="n">ERROR_FILE</span>
 <span class="kn">from</span> <span class="nn">.config</span> <span class="k">import</span> <span class="n">RegistryConfig</span>
 <span class="kn">from</span> <span class="nn">..sheep</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">..api.models</span> <span class="k">import</span> <span class="n">SheepModel</span>
@@ -244,7 +245,7 @@
                         <span class="n">error</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;Sheep container died without notice&#39;</span>
                         <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Sheep `</span><span class="si">%s</span><span class="s1">` encountered error when processing job `</span><span class="si">%s</span><span class="s1">`: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
                                       <span class="n">sheep_id</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">error</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">ERROR_FILE</span><span class="p">,</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">error</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
                     <span class="n">sheep</span><span class="o">.</span><span class="n">in_progress</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">notifier</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span>
             <span class="k">except</span> <span class="n">SheepError</span> <span class="k">as</span> <span class="n">se</span><span class="p">:</span>
@@ -266,7 +267,7 @@
             <span class="c1"># prepare working directory</span>
             <span class="n">working_directory</span> <span class="o">=</span> <span class="n">create_clean_dir</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sheep</span><span class="o">.</span><span class="n">sheep_data_root</span><span class="p">,</span> <span class="n">job_id</span><span class="p">))</span>
             <span class="n">pull_minio_bucket</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">working_directory</span><span class="p">)</span>
-            <span class="n">create_clean_dir</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="s1">&#39;outputs&#39;</span><span class="p">))</span>
+            <span class="n">create_clean_dir</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">OUTPUT_DIR</span><span class="p">))</span>
 
             <span class="c1"># (re)start the sheep if needed</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">sheep</span><span class="o">.</span><span class="n">jobs_meta</span><span class="p">[</span><span class="n">job_id</span><span class="p">]</span>
@@ -282,7 +283,7 @@
                     <span class="n">error</span> <span class="o">=</span> <span class="s1">&#39;Failed to start sheep for this job (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sce</span><span class="p">))</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Sheep `</span><span class="si">%s</span><span class="s1">` encountered error when processing job `</span><span class="si">%s</span><span class="s1">`: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sheep_id</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
                     <span class="n">error</span> <span class="o">=</span> <span class="n">error</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">error</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">ERROR_FILE</span><span class="p">,</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">error</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
                     <span class="k">continue</span>
             <span class="c1"># send the InputMessage to the sheep</span>
             <span class="n">sheep</span><span class="o">.</span><span class="n">in_progress</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span>
@@ -312,11 +313,11 @@
 
                 <span class="c1"># save the done/error file</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">DoneMessage</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="s1">&#39;done&#39;</span><span class="p">,</span> <span class="n">BytesIO</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">DONE_FILE</span><span class="p">,</span> <span class="n">BytesIO</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Job `</span><span class="si">%s</span><span class="s1">` from sheep `</span><span class="si">%s</span><span class="s1">` done&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">sheep_id</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">ErrorMessage</span><span class="p">):</span>
                     <span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">short_error</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="n">long_error</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">error</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">ERROR_FILE</span><span class="p">,</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">error</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Job `</span><span class="si">%s</span><span class="s1">` from sheep `</span><span class="si">%s</span><span class="s1">` failed (</span><span class="si">%s</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">sheep_id</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">short_error</span><span class="p">)</span>
 
                 <span class="c1"># notify about the finished job</span>
@@ -351,7 +352,7 @@
 <span class="sd">        :raise UnknownJobError: if the job is not ready nor it is known to this shepherd</span>
 <span class="sd">        :return: job ready flag</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">minio_object_exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="s1">&#39;done&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">minio_object_exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">minio_object_exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">DONE_FILE</span><span class="p">)</span> <span class="ow">or</span> <span class="n">minio_object_exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minio</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">ERROR_FILE</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">sheep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheep</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>

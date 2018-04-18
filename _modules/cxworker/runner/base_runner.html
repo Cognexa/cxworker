@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>cxworker.runner.base_runner &#8212; cxworker 0.1.0 documentation</title>
+    <title>cxworker.runner.base_runner &#8212; cxworker 0.2.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.1.0',
+        VERSION:     '0.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -50,7 +50,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html">
           cxworker</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -123,6 +123,7 @@
 <span class="kn">from</span> <span class="nn">cxflow.cli.util</span> <span class="k">import</span> <span class="n">validate_config</span><span class="p">,</span> <span class="n">find_config</span>
 <span class="kn">from</span> <span class="nn">cxflow.utils</span> <span class="k">import</span> <span class="n">load_config</span>
 <span class="kn">from</span> <span class="nn">cxworker.comm</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">cxworker.constants</span> <span class="k">import</span> <span class="n">INPUT_DIR</span><span class="p">,</span> <span class="n">OUTPUT_DIR</span>
 
 
 <div class="viewcode-block" id="BaseRunner"><a class="viewcode-back" href="../../../cxworker/cxworker.runner.html#cxworker.runner.BaseRunner">[docs]</a><span class="k">class</span> <span class="nc">BaseRunner</span><span class="p">:</span>
@@ -215,8 +216,8 @@
                 <span class="n">io_data_root</span> <span class="o">=</span> <span class="n">input_message</span><span class="o">.</span><span class="n">io_data_root</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Received job `</span><span class="si">%s</span><span class="s1">` with io data root `</span><span class="si">%s</span><span class="s1">`&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">io_data_root</span><span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">input_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">io_data_root</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="s1">&#39;inputs&#39;</span><span class="p">)</span>
-                    <span class="n">output_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">io_data_root</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="s1">&#39;outputs&#39;</span><span class="p">)</span>
+                    <span class="n">input_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">io_data_root</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">INPUT_DIR</span><span class="p">)</span>
+                    <span class="n">output_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">io_data_root</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">OUTPUT_DIR</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_process_job</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">)</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Job `</span><span class="si">%s</span><span class="s1">` done, sending DoneMessage&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="p">)</span>
                     <span class="n">Messenger</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_socket</span><span class="p">,</span> <span class="n">DoneMessage</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">job_id</span><span class="o">=</span><span class="n">job_id</span><span class="p">)),</span> <span class="n">input_message</span><span class="p">)</span>

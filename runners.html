@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Runners &#8212; cxworker 0.1.0 documentation</title>
+    <title>Runners &#8212; cxworker 0.2.0 documentation</title>
     
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.0',
+        VERSION:     '0.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           cxworker</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -178,9 +178,9 @@
 <h3>Custom Runners<a class="headerlink" href="#custom-runners" title="Permalink to this headline">¶</a></h3>
 <p>In most cases, you can just inherit from <a class="reference internal" href="cxworker/cxworker.runner.html#cxworker.runner.BaseRunner" title="cxworker.runner.BaseRunner"><code class="xref py py-class docutils literal"><span class="pre">cxworker.runner.BaseRunner</span></code></a> and override
 <a class="reference internal" href="cxworker/cxworker.runner.html#cxworker.runner.BaseRunner._process_job" title="cxworker.runner.BaseRunner._process_job"><code class="xref py py-meth docutils literal"><span class="pre">cxworker.runner.BaseRunner._process_job()</span></code></a>.</p>
-<p>This is exactly what is done by <a class="reference internal" href="cxworker/cxworker.runner.html#cxworker.runner.JSONRunner" title="cxworker.runner.JSONRunner"><code class="xref py py-class docutils literal"><span class="pre">cxworker.runner.JSONRunner</span></code></a> method.</p>
+<p>This is exactly what is done by the <a class="reference internal" href="cxworker/cxworker.runner.html#cxworker.runner.JSONRunner" title="cxworker.runner.JSONRunner"><code class="xref py py-class docutils literal"><span class="pre">cxworker.runner.JSONRunner</span></code></a> class.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_process_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>   <span class="c1"># simplified</span>
-    <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="s1">&#39;input.json&#39;</span><span class="p">)))</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="s1">&#39;input&#39;</span><span class="p">)))</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">input_batch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stream</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Another batch (</span><span class="si">%s</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_batch</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
@@ -198,11 +198,11 @@
 
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;JSONify&#39;</span><span class="p">)</span>
     <span class="n">result_json</span> <span class="o">=</span> <span class="n">to_json_serializable</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">result_json</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s1">&#39;output.json&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">))</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">result_json</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">JSONRunner</span></code> simple loads a JSON from <code class="docutils literal"><span class="pre">inputs/input.json</span></code> file, creates a stream from it and writes the output
-batches to <code class="docutils literal"><span class="pre">outputs/output.json</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">JSONRunner</span></code> simply loads JSON from <code class="docutils literal"><span class="pre">inputs/input</span></code> file, creates a stream from it and writes the output
+batches to <code class="docutils literal"><span class="pre">outputs/output</span></code>.</p>
 </div>
 </div>
 </div>
