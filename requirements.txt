@@ -12,3 +12,4 @@ minio
 pip
 schematics
 cxflow
+api-utils # not on PyPI yet
