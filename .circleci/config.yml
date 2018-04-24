@@ -24,6 +24,7 @@ references:
         pacman --noconfirm --needed -Syu minio
         mkdir examples/docker/cxflow_example/ssh
         echo $PRIVATE_SSH_KEY_PRIVATE | tr ' ' '\n' | base64 -d > examples/docker/cxflow_example/ssh/id_rsa
+        pip install git+ssh://git@github.com/Cognexa/api-utils.git@mvp
         pip install -e .
 
   add_rw_key: &add_rw_key

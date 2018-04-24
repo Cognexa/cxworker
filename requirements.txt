@@ -13,4 +13,4 @@ minio
 pip
 schematics
 cxflow
-api-utils # not on PyPI yet
+git+https://github.com/Cognexa/api-utils.git@mvp
