@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Bare Sheep &#8212; cxworker 0.2.0 documentation</title>
-    
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/highlight.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -24,7 +20,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -39,7 +35,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
     <div class="container">
@@ -129,12 +125,12 @@
 <h1>Bare Sheep<a class="headerlink" href="#bare-sheep" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="cxworker/cxworker.sheep.html#cxworker.sheep.BareSheep" title="cxworker.sheep.BareSheep"><code class="xref py py-class docutils literal"><span class="pre">cxworker.sheep.BareSheep</span></code></a> uses a sub-process to run its <em>runner</em>.
 In particular, it runs <code class="docutils literal"><span class="pre">cxworker-runner</span></code> command which is linked to <a class="reference internal" href="cxworker/cxworker.runner.runner_entry_point.html#cxworker.runner.runner_entry_point.run" title="cxworker.runner.runner_entry_point.run"><code class="xref py py-func docutils literal"><span class="pre">cxworker.runner.runner_entry_point.run()</span></code></a>.</p>
-<p>As mentioned earlier, sheep communicates with its runner via a socket.
+<p>As mentioned earlier, a sheep communicates with its runner via a socket.
 The messages are minimal though, in principle, only <code class="docutils literal"><span class="pre">job_id</span></code> s are passed through the socket while the data are
 prepared in a folder.</p>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>Bare sheep&#8217;s config is fairly simple:</p>
+<p>Bare sheep’s config is fairly simple:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">bare_sheep</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">port</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">9001</span>
   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">bare</span>
@@ -145,7 +141,7 @@ prepared in a folder.</p>
 </div>
 <p>Aside from configuration common for all sheep (socket <code class="docutils literal"><span class="pre">port</span></code> and sheep <code class="docutils literal"><span class="pre">type</span></code>), bare sheep allows to configure:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">working_directory</span></code> directory from which is the <code class="docutils literal"><span class="pre">cxworker-runner</span></code> command called</li>
+<li><code class="docutils literal"><span class="pre">working_directory</span></code> directory from which <code class="docutils literal"><span class="pre">cxworker-runner</span></code> command is called</li>
 <li><code class="docutils literal"><span class="pre">stdout_file</span></code> and <code class="docutils literal"><span class="pre">stderr_file</span></code> to store the <strong>runner</strong> outputs</li>
 </ul>
 </div>
@@ -159,7 +155,7 @@ the config file is expected to be located in <code class="docutils literal"><spa
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>Use bare sheep whenever a docker is unavailable or your use case is simple.
-In other cases, <a class="reference external" href="docker_sheep.html">docker sheep</a> is usually preferred.</p>
+In other cases, <a class="reference external" href="docker_sheep.html">docker sheep</a> is usually recommended.</p>
 </div>
 </div>
 
@@ -177,7 +173,7 @@ In other cases, <a class="reference external" href="docker_sheep.html">docker sh
     </p>
     <p>
         &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
     </p>
   </div>
 </footer>

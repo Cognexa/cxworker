@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>cxworker.sheep &#8212; cxworker 0.2.0 documentation</title>
-    
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/highlight.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -24,7 +20,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -39,7 +35,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
     <div class="container">
@@ -144,10 +140,7 @@ Common base class for all exceptions</li>
 <em class="property">class </em><code class="descclassname">cxworker.sheep.</code><code class="descname">BaseSheep</code><span class="sig-paren">(</span><em>socket</em>, <em>sheep_data_root</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/sheep/base_sheep.html#BaseSheep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.sheep.BaseSheep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A base class for container adapters - classes that allow launching different kinds of containers.</p>
-<img src="../_images/inheritance-ccd781b3fa8b930a3be6b89f7e4f064bed5cc517.png" alt="Inheritance diagram of BaseSheep" usemap="#inheritancef9d1465e0a" class="inheritance"/>
-<map id="inheritancef9d1465e0a" name="inheritancef9d1465e0a">
-<area shape="rect" id="node1" title="A base class for container adapters &#45; classes that allow launching different kinds of containers." alt="" coords="5,5,100,31"/>
-</map>
+<img src="../_images/inheritance-ccd781b3fa8b930a3be6b89f7e4f064bed5cc517.png" alt="Inheritance diagram of BaseSheep" class="inheritance"/>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -160,8 +153,8 @@ Common base class for all exceptions</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>socket</strong> (<code class="xref py py-class docutils literal"><span class="pre">_Socket</span></code>) &#8211; socket for feeding sheep&#8217;s runner with InputMessages</li>
-<li><strong>sheep_data_root</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; sheep data root with job working directories</li>
+<li><strong>socket</strong> (<code class="xref py py-class docutils literal"><span class="pre">_Socket</span></code>) – socket for feeding sheep’s runner with InputMessages</li>
+<li><strong>sheep_data_root</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – sheep data root with job working directories</li>
 </ul>
 </td>
 </tr>
@@ -207,8 +200,8 @@ Any unfinished jobs will be lost, socket connection will be reset.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model name</li>
-<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model version</li>
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – model name</li>
+<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – model version</li>
 </ul>
 </td>
 </tr>
@@ -228,11 +221,7 @@ Any unfinished jobs will be lost, socket connection will be reset.</p>
 <p>Sheep running its jobs in docker containers.
 To enable GPU computation, specify the gpu devices in the configuration and sheep will attempt to
 use <code class="docutils literal"><span class="pre">nvidia</span> <span class="pre">docker</span> <span class="pre">2</span></code>.</p>
-<img src="../_images/inheritance-ed33ab579d08df4e1fea1b99ca00199ba47c9310.png" alt="Inheritance diagram of DockerSheep" usemap="#inheritance812713e663" class="inheritance"/>
-<map id="inheritance812713e663" name="inheritance812713e663">
-<area shape="rect" id="node1" title="A base class for container adapters &#45; classes that allow launching different kinds of containers." alt="" coords="5,5,100,31"/>
-<area shape="rect" id="node2" title="Sheep running its jobs in docker containers." alt="" coords="148,5,256,31"/>
-</map>
+<img src="../_images/inheritance-ed33ab579d08df4e1fea1b99ca00199ba47c9310.png" alt="Inheritance diagram of DockerSheep" class="inheritance"/>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -245,10 +234,10 @@ use <code class="docutils literal"><span class="pre">nvidia</span> <span class="
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Any" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Any</span></code></a>]) &#8211; docker sheep configuration</li>
-<li><strong>registry_config</strong> (<code class="xref py py-class docutils literal"><span class="pre">RegistryConfig</span></code>) &#8211; docker registry configuration</li>
-<li><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.List" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]]) &#8211; optional docker container run command</li>
-<li><strong>kwargs</strong> &#8211; <a class="reference internal" href="#cxworker.sheep.BaseSheep" title="cxworker.sheep.BaseSheep"><code class="xref py py-class docutils literal"><span class="pre">BaseSheep</span></code></a>&#8216;s kwargs</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Any" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Any</span></code></a>]) – docker sheep configuration</li>
+<li><strong>registry_config</strong> (<code class="xref py py-class docutils literal"><span class="pre">RegistryConfig</span></code>) – docker registry configuration</li>
+<li><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.List" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]]) – optional docker container run command</li>
+<li><strong>kwargs</strong> – <a class="reference internal" href="#cxworker.sheep.BaseSheep" title="cxworker.sheep.BaseSheep"><code class="xref py py-class docutils literal"><span class="pre">BaseSheep</span></code></a>’s kwargs</li>
 </ul>
 </td>
 </tr>
@@ -265,8 +254,8 @@ use <code class="docutils literal"><span class="pre">nvidia</span> <span class="
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; docker image name</li>
-<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; docker image version</li>
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – docker image name</li>
+<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – docker image version</li>
 </ul>
 </td>
 </tr>
@@ -314,8 +303,8 @@ use <code class="docutils literal"><span class="pre">nvidia</span> <span class="
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; docker image name</li>
-<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; docker image version</li>
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – docker image name</li>
+<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – docker image version</li>
 </ul>
 </td>
 </tr>
@@ -335,11 +324,7 @@ use <code class="docutils literal"><span class="pre">nvidia</span> <span class="
 <p>An adapter that running models on bare metal with <code class="docutils literal"><span class="pre">cxworker-runner</span></code>.
 This might be useful when Docker isolation is impossible or not necessary, for example in deployments with just a
 few models.</p>
-<img src="../_images/inheritance-00f6ca3e91c908be8f8e07fe6c13d341c38668dd.png" alt="Inheritance diagram of BareSheep" usemap="#inheritancedf2c599566" class="inheritance"/>
-<map id="inheritancedf2c599566" name="inheritancedf2c599566">
-<area shape="rect" id="node1" title="An adapter that running models on bare metal with ``cxworker&#45;runner``." alt="" coords="148,5,240,31"/>
-<area shape="rect" id="node2" title="A base class for container adapters &#45; classes that allow launching different kinds of containers." alt="" coords="5,5,100,31"/>
-</map>
+<img src="../_images/inheritance-00f6ca3e91c908be8f8e07fe6c13d341c38668dd.png" alt="Inheritance diagram of BareSheep" class="inheritance"/>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -352,8 +337,8 @@ few models.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Any" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Any</span></code></a>]) &#8211; bare sheep configuration (<code class="xref py py-class docutils literal"><span class="pre">BareSheep.Config</span></code>)</li>
-<li><strong>kwargs</strong> &#8211; parent&#8217;s kwargs</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Any" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Any</span></code></a>]) – bare sheep configuration (<code class="xref py py-class docutils literal"><span class="pre">BareSheep.Config</span></code>)</li>
+<li><strong>kwargs</strong> – parent’s kwargs</li>
 </ul>
 </td>
 </tr>
@@ -370,12 +355,12 @@ few models.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model name</li>
-<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model version</li>
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – model name</li>
+<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – model version</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference internal" href="#cxworker.sheep.SheepConfigurationError" title="cxworker.sheep.SheepConfigurationError"><strong>SheepConfigurationError</strong></a> &#8211; if the runner config path does not exist</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference internal" href="#cxworker.sheep.SheepConfigurationError" title="cxworker.sheep.SheepConfigurationError"><strong>SheepConfigurationError</strong></a> – if the runner config path does not exist</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">None</span></code></p>
@@ -422,8 +407,8 @@ few models.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model name</li>
-<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; model version</li>
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – model name</li>
+<li><strong>model_version</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – model version</li>
 </ul>
 </td>
 </tr>
@@ -473,7 +458,7 @@ few models.</p>
     </p>
     <p>
         &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
     </p>
   </div>
 </footer>

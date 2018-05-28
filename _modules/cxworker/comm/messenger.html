@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>cxworker.comm.messenger &#8212; cxworker 0.2.0 documentation</title>
-    
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/highlight.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
@@ -24,7 +20,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -37,7 +33,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
     <div class="container">
@@ -122,8 +118,8 @@
 <span class="sd">    Static helper class for sending and receiving messages through zmq sockets.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Messenger.send"><a class="viewcode-back" href="../../../cxworker/cxworker.comm.html#cxworker.comm.Messenger.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="n">socket</span><span class="p">:</span> <span class="n">zmq</span><span class="o">.</span><span class="n">Socket</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">response_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Message</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Messenger.send"><a class="viewcode-back" href="../../../cxworker/cxworker.comm.html#cxworker.comm.Messenger.send">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="n">socket</span><span class="p">:</span> <span class="n">zmq</span><span class="o">.</span><span class="n">Socket</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">response_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Message</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Encode the given image and send it to the given socket.</span>
 
@@ -145,8 +141,8 @@
         <span class="k">except</span> <span class="n">ZMQBaseError</span> <span class="k">as</span> <span class="n">zmq_error</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MessageError</span><span class="p">(</span><span class="s1">&#39;Failed to send message&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">zmq_error</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Messenger.recv"><a class="viewcode-back" href="../../../cxworker/cxworker.comm.html#cxworker.comm.Messenger.recv">[docs]</a>    <span class="k">def</span> <span class="nf">recv</span><span class="p">(</span><span class="n">socket</span><span class="p">:</span> <span class="n">zmq</span><span class="o">.</span><span class="n">Socket</span><span class="p">,</span> <span class="n">expected_message_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> \
+<div class="viewcode-block" id="Messenger.recv"><a class="viewcode-back" href="../../../cxworker/cxworker.comm.html#cxworker.comm.Messenger.recv">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">recv</span><span class="p">(</span><span class="n">socket</span><span class="p">:</span> <span class="n">zmq</span><span class="o">.</span><span class="n">Socket</span><span class="p">,</span> <span class="n">expected_message_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> \
             <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">InputMessage</span><span class="p">,</span> <span class="n">DoneMessage</span><span class="p">,</span> <span class="n">ErrorMessage</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Receive, decode and return a message from the given socket.</span>
@@ -190,7 +186,7 @@
     </p>
     <p>
         &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
     </p>
   </div>
 </footer>

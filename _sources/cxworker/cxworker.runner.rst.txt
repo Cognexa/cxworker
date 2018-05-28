@@ -23,8 +23,18 @@ Functions
 - :py:func:`to_json_serializable`:
   Make an object containing numpy arrays/scalars JSON serializable.
 
+- :py:func:`run`:
+  Get the specified data stream from the given dataset, apply the given model on its batches and return the results.
+
+- :py:func:`n_available_gpus`:
+  Return the number of NVIDIA GPU devices available to this process.
+
 
 .. autofunction:: to_json_serializable
+
+.. autofunction:: run
+
+.. autofunction:: n_available_gpus
 
 
 Classes

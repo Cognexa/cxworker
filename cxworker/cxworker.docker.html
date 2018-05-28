@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>cxworker.docker &#8212; cxworker 0.2.0 documentation</title>
-    
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/highlight.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -24,7 +20,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -39,7 +35,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
     <div class="container">
@@ -140,10 +136,7 @@ Helper class for running and managing docker images.</li>
 <em class="property">class </em><code class="descclassname">cxworker.docker.</code><code class="descname">DockerError</code><span class="sig-paren">(</span><em>msg</em>, <em>rc=None</em>, <em>output=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/errors.html#DockerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cxworker.sheep.errors.SheepError</span></code></p>
 <p>Error in execution of a docker command.</p>
-<img src="../_images/inheritance-2a5709c84cfc00602f73d8e6bb205ac826d1776b.png" alt="Inheritance diagram of DockerError" usemap="#inheritance43d376457b" class="inheritance"/>
-<map id="inheritance43d376457b" name="inheritance43d376457b">
-<area shape="rect" id="node1" title="Error in execution of a docker command." alt="" coords="147,5,245,31"/>
-</map>
+<img src="../_images/inheritance-2a5709c84cfc00602f73d8e6bb205ac826d1776b.png" alt="Inheritance diagram of DockerError" class="inheritance"/>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -156,9 +149,9 @@ Helper class for running and managing docker images.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; error message</li>
-<li><strong>rc</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>]) &#8211; command return code</li>
-<li><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]) &#8211; command output</li>
+<li><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – error message</li>
+<li><strong>rc</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>]) – command return code</li>
+<li><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]) – command output</li>
 </ul>
 </td>
 </tr>
@@ -173,10 +166,7 @@ Helper class for running and managing docker images.</li>
 <em class="property">class </em><code class="descclassname">cxworker.docker.</code><code class="descname">DockerContainer</code><span class="sig-paren">(</span><em>image</em>, <em>autoremove=True</em>, <em>runtime=None</em>, <em>env=None</em>, <em>bind_mounts=None</em>, <em>ports=None</em>, <em>command=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/container.html#DockerContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerContainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Helper class for running and managing docker containers.</p>
-<img src="../_images/inheritance-8024c778df1d78de311ae5a5227278ef9e8b28c9.png" alt="Inheritance diagram of DockerContainer" usemap="#inheritance04f7a6d5f1" class="inheritance"/>
-<map id="inheritance04f7a6d5f1" name="inheritance04f7a6d5f1">
-<area shape="rect" id="node1" title="Helper class for running and managing docker containers." alt="" coords="5,5,136,31"/>
-</map>
+<img src="../_images/inheritance-8024c778df1d78de311ae5a5227278ef9e8b28c9.png" alt="Inheritance diagram of DockerContainer" class="inheritance"/>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -189,13 +179,13 @@ Helper class for running and managing docker images.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<code class="xref py py-class docutils literal"><span class="pre">DockerImage</span></code>) &#8211; container <a class="reference internal" href="#cxworker.docker.DockerImage" title="cxworker.docker.DockerImage"><code class="xref py py-class docutils literal"><span class="pre">DockerImage</span></code></a></li>
-<li><strong>autoremove</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) &#8211; remove the container after it is stopped</li>
-<li><strong>runtime</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]) &#8211; docker runtime flag (e.g. <code class="docutils literal"><span class="pre">nvidia</span></code>)</li>
-<li><strong>env</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]]) &#8211; additional environment variables</li>
-<li><strong>bind_mounts</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]]) &#8211; optional host-&gt;container bind mounts mapping</li>
-<li><strong>ports</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>]]) &#8211; optional host-&gt;container port mapping</li>
-<li><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.List" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]]) &#8211; optional docker container run command</li>
+<li><strong>image</strong> (<code class="xref py py-class docutils literal"><span class="pre">DockerImage</span></code>) – container <a class="reference internal" href="#cxworker.docker.DockerImage" title="cxworker.docker.DockerImage"><code class="xref py py-class docutils literal"><span class="pre">DockerImage</span></code></a></li>
+<li><strong>autoremove</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – remove the container after it is stopped</li>
+<li><strong>runtime</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]) – docker runtime flag (e.g. <code class="docutils literal"><span class="pre">nvidia</span></code>)</li>
+<li><strong>env</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]]) – additional environment variables</li>
+<li><strong>bind_mounts</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]]) – optional host-&gt;container bind mounts mapping</li>
+<li><strong>ports</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>]]) – optional host-&gt;container port mapping</li>
+<li><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.List" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>]]) – optional docker container run command</li>
 </ul>
 </td>
 </tr>
@@ -227,7 +217,7 @@ Helper class for running and managing docker images.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#cxworker.docker.DockerError" title="cxworker.docker.DockerError"><strong>DockerError</strong></a> &#8211; if the container was not started yet (i.e., its <code class="docutils literal"><span class="pre">container_id</span></code> is not known)</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#cxworker.docker.DockerError" title="cxworker.docker.DockerError"><strong>DockerError</strong></a> – if the container was not started yet (i.e., its <code class="docutils literal"><span class="pre">container_id</span></code> is not known)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
 </tr>
@@ -273,10 +263,7 @@ Returns <code class="docutils literal"><span class="pre">False</span></code> if 
 <em class="property">class </em><code class="descclassname">cxworker.docker.</code><code class="descname">DockerImage</code><span class="sig-paren">(</span><em>name</em>, <em>tag</em>, <em>registry</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cxworker/docker/image.html#DockerImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cxworker.docker.DockerImage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Helper class for running and managing docker images.</p>
-<img src="../_images/inheritance-ef32c40f64461c9776e3e79dcfcd783ba4a2f150.png" alt="Inheritance diagram of DockerImage" usemap="#inheritance2591173c07" class="inheritance"/>
-<map id="inheritance2591173c07" name="inheritance2591173c07">
-<area shape="rect" id="node1" title="Helper class for running and managing docker images." alt="" coords="5,5,115,31"/>
-</map>
+<img src="../_images/inheritance-ef32c40f64461c9776e3e79dcfcd783ba4a2f150.png" alt="Inheritance diagram of DockerImage" class="inheritance"/>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -289,9 +276,9 @@ Returns <code class="docutils literal"><span class="pre">False</span></code> if 
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; image name, e.g.: <code class="docutils literal"><span class="pre">cognexa/cxflow</span></code></li>
-<li><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; image tag, e.g.: <code class="docutils literal"><span class="pre">latest</span></code> or <code class="docutils literal"><span class="pre">stable</span></code></li>
-<li><strong>registry</strong> (<code class="xref py py-class docutils literal"><span class="pre">RegistryConfig</span></code>) &#8211; docker registry config</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – image name, e.g.: <code class="docutils literal"><span class="pre">cognexa/cxflow</span></code></li>
+<li><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – image tag, e.g.: <code class="docutils literal"><span class="pre">latest</span></code> or <code class="docutils literal"><span class="pre">stable</span></code></li>
+<li><strong>registry</strong> (<code class="xref py py-class docutils literal"><span class="pre">RegistryConfig</span></code>) – docker registry config</li>
 </ul>
 </td>
 </tr>
@@ -360,7 +347,7 @@ Returns <code class="docutils literal"><span class="pre">False</span></code> if 
     </p>
     <p>
         &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
     </p>
   </div>
 </footer>

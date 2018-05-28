@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Docker Sheep &#8212; cxworker 0.2.0 documentation</title>
-    
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/highlight.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -24,7 +20,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -39,7 +35,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-worker navbar-default navbar-fixed-top">
     <div class="container">
@@ -127,11 +123,11 @@
   <div class="section" id="docker-sheep">
 <h1>Docker Sheep<a class="headerlink" href="#docker-sheep" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="cxworker/cxworker.sheep.html#cxworker.sheep.DockerSheep" title="cxworker.sheep.DockerSheep"><code class="xref py py-class docutils literal"><span class="pre">cxworker.sheep.DockerSheep</span></code></a> does exactly the same as <a class="reference external" href="bare_sheep.html">bare sheep</a> except it
-runs the <em>runner</em> in a docker. Similarly to the bare sheep&#8217;s runner, docker runner is expected to listen for
+runs the <em>runner</em> in a docker. Similarly to the bare sheep’s runner, docker runner is expected to listen for
 incoming jobs at a socket bind to port <strong>9999</strong>.</p>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>Docker sheep&#8217;s config is even simpler than in the bare sheep case:</p>
+<p>Docker sheep’s config is even simpler than in the bare sheep case:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">cpu_sheep_1</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">port</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">9001</span>
   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
@@ -186,7 +182,7 @@ incoming jobs at a socket bind to port <strong>9999</strong>.</p>
     </p>
     <p>
         &copy; Copyright 2017, Cognexa Solutions s.r.o..<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.<br/>
     </p>
   </div>
 </footer>
