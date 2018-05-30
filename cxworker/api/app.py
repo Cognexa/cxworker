@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 from functools import partial
 import logging
 
@@ -33,6 +34,7 @@ def error_handler(http_code, error: AppError):
 
 def create_app(name: str):
     app = Flask(name)
+    CORS(app)
 
     app.register_error_handler(NameConflictError, partial(error_handler, 409))
     app.register_error_handler(ClientActionError, partial(error_handler, 400))

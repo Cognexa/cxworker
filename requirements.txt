@@ -13,3 +13,4 @@ pip
 schematics
 cxflow
 git+https://github.com/Cognexa/api-utils.git@mvp
+Flask-CORS
