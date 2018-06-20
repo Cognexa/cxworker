@@ -1,4 +1,4 @@
-from api_utils import Swagger
+from apistrap import Swagger
 
 swagger = Swagger()
 swagger.title = "CXWorker"
