@@ -9,6 +9,6 @@ sheep:
   bare_sheep:
     port: $SHEEP_PORT_1
     type: bare
-    working_directory: $HOME_PATH/docker/${MODEL_EXAMPLE}
+    working_directory: filip/$HOME_PATH/docker/${MODEL_EXAMPLE}
     stdout_file: /tmp/bare-cxworker-runner-stdout.txt
     stderr_file: /tmp/bare-cxworker-runner-stderr.txt

@@ -53,7 +53,8 @@ def test_load_config_valid_env(valid_config_env_file):
 
     assert config.sheep['bare_sheep']['type'] == 'bare'
     assert config.sheep['bare_sheep']['port'] == os.environ['SHEEP_PORT_1']
-    assert config.sheep['bare_sheep']['working_directory'] == os.path.join(os.environ['HOME_PATH'],
+    assert config.sheep['bare_sheep']['working_directory'] == os.path.join('filip',
+                                                                           os.environ['HOME_PATH'],
                                                                            'docker',
                                                                            os.environ['MODEL_EXAMPLE'])
 
