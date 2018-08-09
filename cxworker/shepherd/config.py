@@ -90,7 +90,6 @@ def load_worker_config(config_stream) -> WorkerConfig:
 
     # construct config object
     config_object = yaml.load(config_stream)
-    print(config_object)
 
     config = WorkerConfig(config_object)
     config.validate()
