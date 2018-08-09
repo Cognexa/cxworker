@@ -92,6 +92,5 @@ def test_load_config_invalid_env_name(invalid_config_env_file):
 
 
 def test_invalid_config(invalid_config_file):
-    with pytest.raises(DataError):
-        with open(invalid_config_file) as file:
-            load_worker_config(file)
+    with pytest.raises(DataError), open(invalid_config_file) as file:
+        load_worker_config(file)
