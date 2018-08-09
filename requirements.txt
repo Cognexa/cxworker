@@ -13,3 +13,5 @@ minio
 pip
 schematics
 cxflow
+greenlet==0.4.13
+
