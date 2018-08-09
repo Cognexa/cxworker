@@ -1,6 +1,5 @@
 import pytest
 import json
-import os.path as path
 from io import BytesIO
 import os.path as path
 

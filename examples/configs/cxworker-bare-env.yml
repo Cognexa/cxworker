@@ -3,7 +3,7 @@ registry:
   url: ${REGISTRY_URL}
 storage:
   url: $STORAGE_URL
-  access_key: ${STORAGE_ACCESS_KEY}
+  access_key: $321/$STORAGE_ACCESS_KEY
   secret_key: $_STORAGE_SECRET_KEY
 sheep:
   bare_sheep:
