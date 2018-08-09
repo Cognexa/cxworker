@@ -34,7 +34,7 @@ def test_load_config_valid_env(valid_config_env_file):
     os.environ['REGISTRY_URL'] = 'http://0.0.0.0:6000'
     os.environ['STORAGE_URL'] = 'http://0.0.0.0:7000'
     os.environ['STORAGE_ACCESS_KEY'] = 'AKIAIOSFODNN7EXAMPLE'
-    os.environ['STORAGE_SECRET_KEY'] = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+    os.environ['_STORAGE_SECRET_KEY'] = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
     os.environ['SHEEP_PORT_1'] = '9001'
     os.environ['HOME_PATH'] = 'examples'
     os.environ['MODEL_EXAMPLE'] = 'cxflow_example'
@@ -49,7 +49,7 @@ def test_load_config_valid_env(valid_config_env_file):
     assert config.registry.url == os.environ['REGISTRY_URL']
     assert config.storage.url == os.environ['STORAGE_URL']
     assert config.storage.access_key == os.environ['STORAGE_ACCESS_KEY']
-    assert config.storage.secret_key == os.environ['STORAGE_SECRET_KEY']
+    assert config.storage.secret_key == os.environ['_STORAGE_SECRET_KEY']
 
     assert config.sheep['bare_sheep']['type'] == 'bare'
     assert config.sheep['bare_sheep']['port'] == os.environ['SHEEP_PORT_1']
@@ -64,14 +64,30 @@ def test_load_config_invalid_env(valid_config_env_file):
 
     os.environ['STORAGE_URL'] = 'http://0.0.0.0:7000'
     os.environ['STORAGE_ACCESS_KEY'] = 'AKIAIOSFODNN7EXAMPLE'
-    os.environ['STORAGE_SECRET_KEY'] = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+    os.environ['_STORAGE_SECRET_KEY'] = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
     os.environ['SHEEP_PORT_1'] = '9001'
     os.environ['HOME_PATH'] = 'examples'
     os.environ['MODEL_EXAMPLE'] = 'cxflow_example'
 
     with pytest.raises(ValueError, match='Environment variable `REGISTRY_URL` not set'), \
-            open(valid_config_env_file) as file:
-                load_worker_config(file)
+         open(valid_config_env_file) as file:
+        load_worker_config(file)
+
+
+def test_load_config_invalid_env_name(invalid_config_env_file):
+    os.environ['REGISTRY_URL'] = 'http://0.0.0.0:6000'
+    os.environ['STORAGE_URL'] = 'http://0.0.0.0:7000'
+    os.environ['STORAGE_ACCESS_KEY'] = 'AKIAIOSFODNN7EXAMPLE'
+    os.environ['_STORAGE_SECRET_KEY'] = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+    os.environ['SHEEP_PORT_1'] = '9001'
+    os.environ['HOME_PATH'] = 'examples'
+    os.environ['MODEL_EXAMPLE'] = 'cxflow_example'
+
+    with open(invalid_config_env_file) as file:
+        config = load_worker_config(file)
+
+        assert isinstance(config, WorkerConfig)
+        assert config.sheep['bare_sheep']['name'] == '${3_SHEEP_NAME}'
 
 
 def test_invalid_config(invalid_config_file):

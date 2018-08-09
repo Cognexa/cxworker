@@ -12,3 +12,4 @@ sheep:
     working_directory: $HOME_PATH/docker/${MODEL_EXAMPLE}
     stdout_file: /tmp/bare-cxworker-runner-stdout.txt
     stderr_file: /tmp/bare-cxworker-runner-stderr.txt
+    name: ${3_SHEEP_NAME}
