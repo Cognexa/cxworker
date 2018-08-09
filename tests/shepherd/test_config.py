@@ -59,7 +59,6 @@ def test_load_config_valid_env(valid_config_env_file):
 
 
 def test_load_config_invalid_env(valid_config_env_file):
-
     if 'REGISTRY_URL' in os.environ:
         del os.environ['REGISTRY_URL']
 
@@ -70,13 +69,12 @@ def test_load_config_invalid_env(valid_config_env_file):
     os.environ['HOME_PATH'] = 'examples'
     os.environ['MODEL_EXAMPLE'] = 'cxflow_example'
 
-    with pytest.raises(ValueError, match='Environment variable `REGISTRY_URL` not set'):
-        with open(valid_config_env_file) as file:
-            load_worker_config(file)
+    with pytest.raises(ValueError, match='Environment variable `REGISTRY_URL` not set'), \
+            open(valid_config_env_file) as file:
+                load_worker_config(file)
 
 
 def test_invalid_config(invalid_config_file):
-
     with pytest.raises(DataError):
         with open(invalid_config_file) as file:
             load_worker_config(file)
