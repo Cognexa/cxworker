@@ -145,7 +145,7 @@ pip install .
 </div>
 <p>Now, running the <strong>cxworker</strong> is incredibly easy.</p>
 <div class="highlight-shell"><div class="highlight"><pre><span></span>docker-compose -f examples/docker/docker-compose-sandbox.yml up -d  <span class="c1"># start up minio and docker registry</span>
-cxworker run -c examples/configs/cxworker-bare.yml  <span class="c1"># start up cxworker</span>
+cxworker -c examples/configs/cxworker-bare.yml  <span class="c1"># start up cxworker</span>
 </pre></div>
 </div>
 <p>That is it! You should see some output similar to this:</p>
