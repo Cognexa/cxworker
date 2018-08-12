@@ -137,7 +137,7 @@
                 <span class="n">minio</span><span class="o">.</span><span class="n">fget_object</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">,</span> <span class="nb">object</span><span class="o">.</span><span class="n">object_name</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_name</span><span class="p">,</span> <span class="n">filepath</span><span class="p">))</span>
                 <span class="n">pulled_count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">pulled_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;No input objects pulled from bucket `</span><span class="si">%s</span><span class="s1">`. Make they are in the `inputs/` folder.&#39;</span><span class="p">,</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;No input objects pulled from bucket `</span><span class="si">%s</span><span class="s1">`. Make sure they are in the `inputs/` folder.&#39;</span><span class="p">,</span>
                             <span class="n">bucket_name</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">MinioError</span> <span class="k">as</span> <span class="n">me</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">StorageError</span><span class="p">(</span><span class="s1">&#39;Failed to pull minio bucket `</span><span class="si">{}</span><span class="s1">`&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">me</span></div>
@@ -148,7 +148,7 @@
 <span class="sd">    Push directory contents to the specified minio bucket.</span>
 
 <span class="sd">    :param minio: Minio handle</span>
-<span class="sd">    :param bucket_name: Minio buckete name</span>
+<span class="sd">    :param bucket_name: Minio bucket name</span>
 <span class="sd">    :param dir_name: directory name to push to from</span>
 <span class="sd">    :raise StorageError: if the push fails</span>
 <span class="sd">    &quot;&quot;&quot;</span>
