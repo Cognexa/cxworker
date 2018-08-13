@@ -65,7 +65,7 @@ class WorkerConfig(Model):
 
 
 def load_worker_config(config_stream) -> WorkerConfig:
-
+    # regex pattern for compiling ENV variables
     re_var_brackets = r'\$({)?([A-Z_][A-Z_0-9]*)(?(1)}|)'
     yaml.add_implicit_resolver('!env', re.compile(r'^.*' + re_var_brackets + r'.*$'))
 
