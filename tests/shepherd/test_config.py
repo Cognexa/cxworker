@@ -48,7 +48,7 @@ def test_load_config_valid_env(valid_config_env_file):
 
     assert config.registry.url == os.environ['REGISTRY_URL']
     assert config.storage.url == os.environ['STORAGE_URL']
-    assert config.storage.access_key == os.environ['STORAGE_ACCESS_KEY']
+    assert config.storage.access_key == os.path.join('$321', os.environ['STORAGE_ACCESS_KEY'])
     assert config.storage.secret_key == os.environ['_STORAGE_SECRET_KEY']
 
     assert config.sheep['bare_sheep']['type'] == 'bare'

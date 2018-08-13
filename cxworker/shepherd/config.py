@@ -65,11 +65,9 @@ class WorkerConfig(Model):
 
 
 def load_worker_config(config_stream) -> WorkerConfig:
-    # regex pattern for compiling ENV variables
-    regex_no_brackets = re.compile(r'([^$]*)\$([A-Z_][A-Z_0-9]*)')
-    regex_brackets = re.compile(r'([^$]*)\${([A-Z_][A-Z_0-9]*)}')
-    yaml.add_implicit_resolver('!env', regex_no_brackets)
-    yaml.add_implicit_resolver('!env', regex_brackets)
+
+    re_var_brackets = r'\$({)?([A-Z_][A-Z_0-9]*)(?(1)}|)'
+    yaml.add_implicit_resolver('!env', re.compile(r'^.*' + re_var_brackets + r'.*$'))
 
     # define constructor for recognizing environment variables
     def env_constructor(loader, node):
@@ -79,10 +77,9 @@ def load_worker_config(config_stream) -> WorkerConfig:
             env_name = matchobj.group(2)
             if env_name not in os.environ:
                 raise ValueError(f'Environment variable `{env_name}` not set')
-            return matchobj.group(1) + os.environ[env_name]
+            return os.environ[env_name]
 
-        value = regex_no_brackets.sub(replace_env_vars, value)
-        value = regex_brackets.sub(replace_env_vars, value)
+        value = re.sub(re_var_brackets, replace_env_vars, value)
         return value
 
     # add constructor to yaml loader
