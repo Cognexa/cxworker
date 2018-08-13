@@ -79,8 +79,7 @@ def load_worker_config(config_stream) -> WorkerConfig:
                 raise ValueError(f'Environment variable `{env_name}` not set')
             return os.environ[env_name]
 
-        value = re.sub(re_var_brackets, replace_env_vars, value)
-        return value
+        return re.sub(re_var_brackets, replace_env_vars, value)
 
     # add constructor to yaml loader
     yaml.add_constructor('!env', env_constructor)
